@@ -8,14 +8,50 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isOnToggle = false
+    @State var isClick = false
+    @State var isOpenBankAccount = false
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            ZStack {
+                HStack {
+                    VStack(spacing: 10, content: {
+                        payBag()
+                        openBankAccount()
+                        Spacer().frame(height: 400)
+                    }).padding()
+                    Spacer()
+                }
+                Spacer()
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.yellow)
+                    .offset(x: isOnToggle ? 170 : 0)
+                Text("Что то на экране")
+                    .offset(x: isOnToggle ? 120 : 0)
+            }
+            Toggle(isOn: $isOnToggle) {
+                Text("Профиль")
+            }.padding()
+        }.animation(.spring(response: 0.3, dampingFraction: 0.9, blendDuration: 0.4))
+    }
+    
+    fileprivate func payBag() -> Button<Text> {
+        return Button {
+            self.isClick = true
+        } label: {
+            Text("Пополнить баланс")
+                
         }
-        .padding()
+    }
+    
+    fileprivate func openBankAccount() -> Button<Text> {
+        return Button {
+            self.isOpenBankAccount = true
+        } label: {
+            Text("Открыть счет")
+                
+        }
     }
 }
 
