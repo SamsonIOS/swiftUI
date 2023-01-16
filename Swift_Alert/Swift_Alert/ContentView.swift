@@ -41,7 +41,7 @@ struct ContentView: View {
                 Text("Показать")
             } else {
                 Text("Показать")
-                    .foregroundColor(.green)
+                    .foregroundColor(.black)
             }
         }.alert(isPresented: $testSecondView) {
             Alert(title:Text("Пример Alert c 2 кнопками и логикой"),
@@ -67,7 +67,8 @@ struct ContentView: View {
         } label: {
             Text("Показать 4")
         }.actionSheet(isPresented: $testActionSheetWithButton) {
-            ActionSheet(title: Text("Пример"), message: Text("ActionSheet c кнопками и логикой"), buttons: [.destructive(Text("Показать")) {
+            ActionSheet(title: Text("Пример"),
+                        message: Text("ActionSheet c кнопками и логикой"), buttons: [.destructive(Text("Показать")) {
                 print("Test print")
             }, .cancel()])
         }
