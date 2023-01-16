@@ -16,9 +16,13 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 25, content: {
+            Text("Пример Alert")
             showAlert()
+            Text("Пример Alert c 2 кнопками и логикой")
             showAlertWith()
+            Text("Пример ActionSheet")
             showActionSheet()
+            Text("Пример ActionSheet c кнопками и логикой")
             showActionSheetButton()
         })
     }
@@ -53,24 +57,29 @@ struct ContentView: View {
     
     fileprivate func showActionSheet() -> some View {
         return Button {
-            self.testActionSheet = true
+            testActionSheet = true
         } label: {
             Text("Показать")
-        }.actionSheet(isPresented: $testActionSheet) {
-            ActionSheet(title: Text("«Пример ActionSheet»"))
+        }.confirmationDialog("Перевести деньги", isPresented: $testActionSheet, titleVisibility: .visible) {
+            Button("Да", role: .destructive) {}
+            Button("Отмена", role: .cancel) {}
+        } message: {
+            Text("Вы уверены?")
         }
     }
     
     fileprivate func showActionSheetButton() -> some View {
         return Button {
-            self.testActionSheetWithButton = true
+            testActionSheetWithButton = true
         } label: {
             Text("Показать 4")
-        }.actionSheet(isPresented: $testActionSheetWithButton) {
-            ActionSheet(title: Text("Пример"),
-                        message: Text("ActionSheet c кнопками и логикой"), buttons: [.destructive(Text("Показать")) {
-                print("Test print")
-            }, .cancel()])
+        }.confirmationDialog("Перевести деньги", isPresented: $testActionSheetWithButton, titleVisibility: .visible) {
+            Button("Да", role: .destructive) {
+                print("Заказ отправлен")
+            }
+            Button("Отмена", role: .cancel) {}
+        } message: {
+            Text("Вы уверены?")
         }
     }
 }
