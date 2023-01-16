@@ -11,6 +11,7 @@ struct ContentView: View {
     @State var isOnToggle = false
     @State var isClick = false
     @State var isOpenBankAccount = false
+    @State var isAddMoney = false
     
     var body: some View {
         VStack {
@@ -19,7 +20,8 @@ struct ContentView: View {
                     VStack(spacing: 10, content: {
                         payBag()
                         openBankAccount()
-                        Spacer().frame(height: 400)
+                        addMoney()
+                        Spacer().frame(height: 600)
                     }).padding()
                     Spacer()
                 }
@@ -27,13 +29,11 @@ struct ContentView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.yellow)
                     .offset(x: isOnToggle ? 170 : 0)
-                Text("Что то на экране")
-                    .offset(x: isOnToggle ? 120 : 0)
             }
             Toggle(isOn: $isOnToggle) {
                 Text("Профиль")
             }.padding()
-        }.animation(.spring(response: 0.3, dampingFraction: 0.9, blendDuration: 0.4))
+        }.animation(.spring(response: 0.3, dampingFraction: 0.9, blendDuration: 0.4), value: isOnToggle)
     }
     
     fileprivate func payBag() -> Button<Text> {
@@ -41,7 +41,6 @@ struct ContentView: View {
             self.isClick = true
         } label: {
             Text("Пополнить баланс")
-                
         }
     }
     
@@ -50,6 +49,15 @@ struct ContentView: View {
             self.isOpenBankAccount = true
         } label: {
             Text("Открыть счет")
+                
+        }
+    }
+    
+    fileprivate func addMoney() -> Button<Text> {
+        return Button {
+            self.isAddMoney = true
+        } label: {
+            Text("Перевести на счет")
                 
         }
     }
