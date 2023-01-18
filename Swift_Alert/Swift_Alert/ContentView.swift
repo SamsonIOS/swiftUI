@@ -8,21 +8,51 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    private enum Constants {
+        static let showTitle = "Показать"
+        static let firstBlockTitle = "Пример Alert"
+        static let secondBlockTitle = "Пример Alert c 2 кнопками и логикой"
+        static let secondBlockTitleAfterTap = "Другой текст"
+        static let thirdBlockTitle = "Пример ActionSheet"
+        static let fourthBlockTitle = "Пример ActionSheet c кнопками и логикой"
+        static let fourthBlockTitleAfterTap = "Пример ActionSheet c кнопками и логикой"
+        static let changeTitle = "Изменить текст"
+        static let changeColorTitle = "Сменить цвет?"
+        static let transferMoneyTitle = "Перевести деньги"
+        static let yesTitle = "Да"
+        static let cancelTitle = "Отмена"
+        static let areYouSureTitle = "Вы уверены?"
+        static let answerTitle = "Выберите вариант ответа"
+        static let spacing: CGFloat = 25
+
+    }
+    
     @State var testFirstView = false
     @State var testSecondView = false
-    @State var yellow = false
+    @State var forFirstAlertFlag = false
+    @State var forSecondAlertFlag = false
     @State var testActionSheet = false
     @State var testActionSheetWithButton = false
     
     var body: some View {
-        VStack(spacing: 25, content: {
-            Text("Пример Alert")
+        VStack(spacing: Constants.spacing, content: {
+            Text(Constants.firstBlockTitle)
             showAlert()
-            Text("Пример Alert c 2 кнопками и логикой")
+            if !forFirstAlertFlag {
+                Text(Constants.secondBlockTitle)
+            } else {
+                Text(Constants.secondBlockTitleAfterTap)
+            }
             showAlertWith()
-            Text("Пример ActionSheet")
+            Text(Constants.thirdBlockTitle)
             showActionSheet()
-            Text("Пример ActionSheet c кнопками и логикой")
+            if !forSecondAlertFlag {
+                Text(Constants.fourthBlockTitle)
+            } else {
+                Text(Constants.fourthBlockTitleAfterTap)
+                    .foregroundColor(.red)
+            }
             showActionSheetButton()
         })
     }
@@ -31,9 +61,9 @@ struct ContentView: View {
         return Button {
             self.testFirstView = true
         } label: {
-            Text("Показать")
+            Text(Constants.showTitle)
         }.alert(isPresented: $testFirstView) {
-            Alert(title: Text("Пример Alert"))
+            Alert(title: Text(Constants.firstBlockTitle))
         }
     }
     
@@ -41,17 +71,12 @@ struct ContentView: View {
         return Button {
             self.testSecondView = true
         } label: {
-            if !yellow {
-                Text("Показать")
-            } else {
-                Text("Показать")
-                    .foregroundColor(.black)
-            }
+                Text(Constants.showTitle)
         }.alert(isPresented: $testSecondView) {
-            Alert(title:Text("Пример Alert c 2 кнопками и логикой"),
-                primaryButton: .destructive(Text("Сменить цвет")) {
-                self.yellow = true
-            } , secondaryButton: .cancel())
+            Alert(title:Text(Constants.secondBlockTitle),
+                  primaryButton: .destructive(Text(Constants.changeTitle)) {
+                self.forFirstAlertFlag = true
+            }, secondaryButton: .cancel())
         }
     }
     
@@ -59,12 +84,12 @@ struct ContentView: View {
         return Button {
             testActionSheet = true
         } label: {
-            Text("Показать")
-        }.confirmationDialog("Перевести деньги", isPresented: $testActionSheet, titleVisibility: .visible) {
-            Button("Да", role: .destructive) {}
-            Button("Отмена", role: .cancel) {}
+            Text(Constants.showTitle)
+        }.confirmationDialog(Constants.transferMoneyTitle, isPresented: $testActionSheet, titleVisibility: .visible) {
+            Button(Constants.yesTitle, role: .destructive) {}
+            Button(Constants.cancelTitle, role: .cancel) {}
         } message: {
-            Text("Вы уверены?")
+            Text(Constants.areYouSureTitle)
         }
     }
     
@@ -72,14 +97,14 @@ struct ContentView: View {
         return Button {
             testActionSheetWithButton = true
         } label: {
-            Text("Показать 4")
-        }.confirmationDialog("Перевести деньги", isPresented: $testActionSheetWithButton, titleVisibility: .visible) {
-            Button("Да", role: .destructive) {
-                print("Заказ отправлен")
+            Text(Constants.showTitle)
+        }.confirmationDialog(Constants.changeColorTitle, isPresented: $testActionSheetWithButton, titleVisibility: .visible) {
+            Button(Constants.yesTitle, role: .destructive) {
+                forSecondAlertFlag = true
             }
-            Button("Отмена", role: .cancel) {}
+            Button(Constants.cancelTitle, role: .cancel) {}
         } message: {
-            Text("Вы уверены?")
+            Text(Constants.answerTitle)
         }
     }
 }
