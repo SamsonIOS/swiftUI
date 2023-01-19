@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Экран настроек телефона
 struct ContentView: View {
     
     private enum Constants {
@@ -47,12 +48,12 @@ struct ContentView: View {
         static let padding: CGFloat = 1
     }
     
-    @State var section = 0
-    @State var sectionWifi = 0
-    @State var switchWifi = [Constants.disconnect, Constants.connect]
-    @State var switchOnOff = [Constants.switchOn, Constants.switchOff]
-    @State var isOnFly = false
-    @State var isOnVPN = false
+    @State private var section = 0
+    @State private var sectionWifi = 0
+    @State private var switchWifi = [Constants.disconnect, Constants.connect]
+    @State private var switchOnOff = [Constants.switchOn, Constants.switchOff]
+    @State private var isOnFly = false
+    @State private var isOnVPN = false
     
     var body: some View {
         NavigationView {
