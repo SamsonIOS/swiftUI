@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Экран с алертами
 struct ContentView: View {
     
     private enum Constants {
@@ -28,26 +29,26 @@ struct ContentView: View {
 
     }
     
-    @State var testFirstView = false
-    @State var testSecondView = false
-    @State var forFirstAlertFlag = false
-    @State var forSecondAlertFlag = false
-    @State var testActionSheet = false
-    @State var testActionSheetWithButton = false
+    @State private var isFirstViewShown = false
+    @State private var isSecondViewShown = false
+    @State private var isFirstAlertShown = false
+    @State private var isSecondAlertShown = false
+    @State private var isActionSheetShown = false
+    @State private var isActionSheetWithButtonShown = false
     
     var body: some View {
         VStack(spacing: Constants.spacing, content: {
             Text(Constants.firstBlockTitle)
-            showAlert()
-            if !forFirstAlertFlag {
+            showAlert
+            if !isFirstAlertShown {
                 Text(Constants.secondBlockTitle)
             } else {
                 Text(Constants.secondBlockTitleAfterTap)
             }
-            showAlertWith()
+            showAlertWith
             Text(Constants.thirdBlockTitle)
             showActionSheet()
-            if !forSecondAlertFlag {
+            if !isSecondAlertShown {
                 Text(Constants.fourthBlockTitle)
             } else {
                 Text(Constants.fourthBlockTitleAfterTap)
@@ -57,35 +58,35 @@ struct ContentView: View {
         })
     }
     
-    fileprivate func showAlert() -> some View {
-        return Button {
-            self.testFirstView = true
+    private var showAlert: some View {
+        Button {
+            self.isFirstViewShown = true
         } label: {
             Text(Constants.showTitle)
-        }.alert(isPresented: $testFirstView) {
+        }.alert(isPresented: $isFirstViewShown) {
             Alert(title: Text(Constants.firstBlockTitle))
         }
     }
     
-    fileprivate func showAlertWith() -> some View {
-        return Button {
-            self.testSecondView = true
+    private var showAlertWith: some View {
+        Button {
+            self.isSecondViewShown = true
         } label: {
                 Text(Constants.showTitle)
-        }.alert(isPresented: $testSecondView) {
+        }.alert(isPresented: $isSecondViewShown) {
             Alert(title:Text(Constants.secondBlockTitle),
                   primaryButton: .destructive(Text(Constants.changeTitle)) {
-                self.forFirstAlertFlag = true
+                self.isFirstAlertShown = true
             }, secondaryButton: .cancel())
         }
     }
     
-    fileprivate func showActionSheet() -> some View {
-        return Button {
-            testActionSheet = true
+    private var showActionSheet: some View {
+        Button {
+            isActionSheetShown = true
         } label: {
             Text(Constants.showTitle)
-        }.confirmationDialog(Constants.transferMoneyTitle, isPresented: $testActionSheet, titleVisibility: .visible) {
+        }.confirmationDialog(Constants.transferMoneyTitle, isPresented: $isActionSheetShown, titleVisibility: .visible) {
             Button(Constants.yesTitle, role: .destructive) {}
             Button(Constants.cancelTitle, role: .cancel) {}
         } message: {
@@ -93,14 +94,14 @@ struct ContentView: View {
         }
     }
     
-    fileprivate func showActionSheetButton() -> some View {
-        return Button {
-            testActionSheetWithButton = true
+    private var showActionSheetButton: some View {
+        Button {
+            isActionSheetWithButtonShown = true
         } label: {
             Text(Constants.showTitle)
-        }.confirmationDialog(Constants.changeColorTitle, isPresented: $testActionSheetWithButton, titleVisibility: .visible) {
+        }.confirmationDialog(Constants.changeColorTitle, isPresented: $isActionSheetWithButtonShown, titleVisibility: .visible) {
             Button(Constants.yesTitle, role: .destructive) {
-                forSecondAlertFlag = true
+                isSecondAlertShown = true
             }
             Button(Constants.cancelTitle, role: .cancel) {}
         } message: {
