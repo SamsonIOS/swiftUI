@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Экран профиля пользователя
 struct ContentView: View {
     
     private enum Constants {
@@ -36,15 +37,16 @@ struct ContentView: View {
         static let animationSpring: CGFloat = 0.3
         static let dampingFraction: CGFloat = 0.9
         static let blendDuration: CGFloat = 0.4
+        static let randomMoney = 10...5000
     }
     
-    @State var balance = 0
-    @State var walletFirst = 0
-    @State var walletSecond = 0
-    @State var isOnToggle = false
-    @State var isClick = false
-    @State var isOpenBankAccount = false
-    @State var isAddMoney = false
+    @State private var balance = 0
+    @State private var walletFirst = 0
+    @State private var walletSecond = 0
+    @State private var isOnToggle = false
+    @State private var isClick = false
+    @State private var isOpenBankAccountShown = false
+    @State private var isAddMoneyShown = false
     
     var body: some View {
         VStack {
@@ -55,10 +57,11 @@ struct ContentView: View {
                         Text("\(Constants.cardTitle)\(walletFirst) \(Constants.rub)")
                         Text("\(Constants.facialTitle)\(walletSecond) \(Constants.rub)")
                         Spacer()
-                        payBag()
-                        extractedFunc()
-                        addMoney()
-                        Spacer().frame(height: Constants.spacerHeigth)
+                        payBag
+                        extractedFunc
+                        addMoney
+                        Spacer()
+                            .frame(height: Constants.spacerHeigth)
                     }).padding()
                     Spacer()
                 }
@@ -70,21 +73,26 @@ struct ContentView: View {
             Toggle(isOn: $isOnToggle) {
                 Text(Constants.profileTitle)
             }.padding()
-        }.animation(.spring(response: Constants.animationSpring, dampingFraction: Constants.dampingFraction, blendDuration: Constants.blendDuration), value: isOnToggle)
+        }.animation(
+            .spring(
+                response: Constants.animationSpring,
+                dampingFraction: Constants.dampingFraction,
+                blendDuration: Constants.blendDuration),
+            value: isOnToggle)
     }
     
-    fileprivate func payBag() -> some View {
-        return Button {
+    private var payBag: some View {
+        Button {
             self.isClick = true
         } label: {
             Text(Constants.addBalance)
         }.confirmationDialog(Constants.chooseBalance, isPresented: $isClick) {
             Button(Constants.addCard, role: .destructive) {
-                walletFirst += .random(in: 10...5000)
+                walletFirst += .random(in: Constants.randomMoney)
                 balance = walletFirst + walletSecond
             }
             Button(Constants.addFacial, role: .destructive) {
-                walletSecond += .random(in: 10...5000)
+                walletSecond += .random(in: Constants.randomMoney)
                 balance = walletSecond + walletFirst
             }
         } message: {
@@ -92,28 +100,26 @@ struct ContentView: View {
         }
     }
     
-    fileprivate func extractedFunc() -> some View {
-        return Button {
-            self.isOpenBankAccount = true
+    private var extractedFunc: some View {
+        Button {
+            self.isOpenBankAccountShown = true
         } label: {
             Text(Constants.openFacial)
-        }.alert(Text(Constants.errorTitle), isPresented: $isOpenBankAccount) {
+        }.alert(Text(Constants.errorTitle), isPresented: $isOpenBankAccountShown) {
             Button(Constants.okTitle, role: .cancel) {}
         } message: {
             Text(Constants.failureTitle)
         }
     }
     
-    fileprivate func addMoney() -> some View {
-        return Button {
-            self.isAddMoney = true
+    private var addMoney: some View {
+        Button {
+            self.isAddMoneyShown = true
         } label: {
             Text(Constants.transferFacialToFacial)
-        }.alert(Text(Constants.succesTitle), isPresented: $isAddMoney) {
-            Button(Constants.cardToFacial, role: .destructive) {
-            }
-            Button(Constants.facialToCard, role: .destructive) {
-            }
+        }.alert(Text(Constants.succesTitle), isPresented: $isAddMoneyShown) {
+            Button(Constants.cardToFacial, role: .destructive) {}
+            Button(Constants.facialToCard, role: .destructive) {}
         }
     }
 }
