@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-
 /// Экран с алертами
 struct ContentView: View {
     
@@ -47,14 +46,14 @@ struct ContentView: View {
             }
             showAlertWith
             Text(Constants.thirdBlockTitle)
-            showActionSheet()
+            showActionSheet
             if !isSecondAlertShown {
                 Text(Constants.fourthBlockTitle)
             } else {
                 Text(Constants.fourthBlockTitleAfterTap)
                     .foregroundColor(.red)
             }
-            showActionSheetButton()
+            showActionSheetButton
         })
     }
     
