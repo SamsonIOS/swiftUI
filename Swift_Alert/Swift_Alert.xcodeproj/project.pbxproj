@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3385F41D2979D4E20075326A /* eminem.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3385F41B2979D4E20075326A /* eminem.mp3 */; };
+		3385F41E2979D4E20075326A /* muz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3385F41C2979D4E20075326A /* muz.mp3 */; };
+		3385F4202979FD140075326A /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3385F41F2979FD140075326A /* Song.swift */; };
+		3387E564297AFFB800A503C8 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3387E563297AFFB800A503C8 /* PlayerViewModel.swift */; };
 		33B9B1F329756D5000AD2D34 /* Swift_AlertApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B9B1F229756D5000AD2D34 /* Swift_AlertApp.swift */; };
 		33B9B1F529756D5000AD2D34 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B9B1F429756D5000AD2D34 /* ContentView.swift */; };
 		33B9B1F729756D5200AD2D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33B9B1F629756D5200AD2D34 /* Assets.xcassets */; };
@@ -14,6 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3385F41B2979D4E20075326A /* eminem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = eminem.mp3; sourceTree = "<group>"; };
+		3385F41C2979D4E20075326A /* muz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = muz.mp3; sourceTree = "<group>"; };
+		3385F41F2979FD140075326A /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		3387E563297AFFB800A503C8 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		33B9B1EF29756D5000AD2D34 /* Swift_Alert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swift_Alert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33B9B1F229756D5000AD2D34 /* Swift_AlertApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_AlertApp.swift; sourceTree = "<group>"; };
 		33B9B1F429756D5000AD2D34 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,8 +59,12 @@
 		33B9B1F129756D5000AD2D34 /* Swift_Alert */ = {
 			isa = PBXGroup;
 			children = (
+				3385F41F2979FD140075326A /* Song.swift */,
 				33B9B1F229756D5000AD2D34 /* Swift_AlertApp.swift */,
 				33B9B1F429756D5000AD2D34 /* ContentView.swift */,
+				3387E563297AFFB800A503C8 /* PlayerViewModel.swift */,
+				3385F41B2979D4E20075326A /* eminem.mp3 */,
+				3385F41C2979D4E20075326A /* muz.mp3 */,
 				33B9B1F629756D5200AD2D34 /* Assets.xcassets */,
 				33B9B1F829756D5200AD2D34 /* Preview Content */,
 			);
@@ -125,6 +137,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3385F41D2979D4E20075326A /* eminem.mp3 in Resources */,
+				3385F41E2979D4E20075326A /* muz.mp3 in Resources */,
 				33B9B1FA29756D5200AD2D34 /* Preview Assets.xcassets in Resources */,
 				33B9B1F729756D5200AD2D34 /* Assets.xcassets in Resources */,
 			);
@@ -137,6 +151,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3385F4202979FD140075326A /* Song.swift in Sources */,
+				3387E564297AFFB800A503C8 /* PlayerViewModel.swift in Sources */,
 				33B9B1F529756D5000AD2D34 /* ContentView.swift in Sources */,
 				33B9B1F329756D5000AD2D34 /* Swift_AlertApp.swift in Sources */,
 			);
