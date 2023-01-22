@@ -47,6 +47,55 @@ struct CarsView: View {
         static let priceTitle = "Цена -"
     }
     
+    // MARK: - Body
+    
+    var body: some View {
+        NavigationView {
+            ZStack {
+                VStack {
+                    carName
+                    priceTitle
+                    Spacer().frame(height: Constants.spacerForPriceTitle)
+                    carImage
+                    HStack {
+                        ZStack {
+                            Section {
+                                speedColor
+                                speedImage
+                                speedText
+                            }
+                            
+                            Section {
+                                seatsColor
+                                seatsImage
+                                seatsText
+                            }
+                            
+                            Section {
+                                pistonColor
+                                pistonImage
+                                pistonText
+                            }
+                            
+                            Form {
+                                typeOfBuyPicker
+                                typeOfComplectationPicker
+                                
+                            }.scrollDisabled(true)
+                                .frame(height: Constants.formFrameHeight)
+                                .offset(y: Constants.formOffsetY)
+                        }
+                    }
+                    Spacer().frame(height: Constants.spacerForFormHeight)
+                    segmentControl
+                    Spacer().frame(height: Constants.spacerForSegmentHeight)
+                    testDriveButton
+                    sharedButton
+                }
+            }
+        }
+    }
+    
     // MARK: - @State
     
     @State private var segmentIndex = 0
@@ -66,125 +115,118 @@ struct CarsView: View {
     private var carHoursePower = ["320 HP", "560 HP", "249 HP"]
     private var carsImageName = ["audi", "bmw", "lexus"]
     
-    // MARK: - Body
+    // MARK: - Private Methods
     
-    var body: some View {
-        NavigationView {
-            ZStack {
-                VStack {
-                    carName
-                    priceTitle
-                    Spacer().frame(height: Constants.spacerForPriceTitle)
-                    carImage
-                    HStack {
-                        ZStack {
-                            Section {
-                                Color.purple
-                                    .frame(
-                                        width: Constants.colorFrameWidth,
-                                        height: Constants.colorFrameHeight)
-                                    .cornerRadius(Constants.colorCornerRadius)
-                                    .offset(
-                                        x: -Constants.offsetX,
-                                        y: Constants.offsetY)
-                                Image(Constants.speedImageName)
-                                    .resizable()
-                                    .frame(
-                                        width: Constants.imageFrame,
-                                        height: Constants.imageFrame)
-                                    .cornerRadius(Constants.colorCornerRadius)
-                                    .offset(
-                                        x: -Constants.offsetX,
-                                        y: Constants.imageOffsetY)
-                                Text("\(parameters[segmentIndex])")
-                                    .offset(
-                                        x: -Constants.offsetX,
-                                        y: Constants.textOffsetY)
-                            }
-                            
-                            Section {
-                                Color.purple
-                                    .frame(
-                                        width: Constants.colorFrameWidth,
-                                        height: Constants.colorFrameHeight)
-                                    .cornerRadius(Constants.colorCornerRadius)
-                                    .offset(
-                                        x: Constants.zeroForFrame,
-                                        y: Constants.offsetY)
-                               
-                                Image(Constants.seatsImageName)
-                                    .resizable()
-                                    .frame(
-                                        width: Constants.imageFrame,
-                                        height: Constants.imageFrame)
-                                    .cornerRadius(Constants.colorCornerRadius)
-                                    .offset(
-                                        x: Constants.zeroForFrame,
-                                        y: Constants.imageOffsetY)
-                                Text("\(carSeats[segmentIndex])")
-                                    .offset(
-                                        x: Constants.zeroForFrame,
-                                        y: Constants.textOffsetY)
-                                
-                            }
-                            
-                            Section {
-                                Color.purple
-                                    .frame(
-                                        width: Constants.colorFrameWidth,
-                                        height: Constants.colorFrameHeight)
-                                    .cornerRadius(Constants.colorCornerRadius)
-                                    .offset(
-                                        x: Constants.offsetX,
-                                        y: Constants.offsetY)
-                                Image(Constants.pistonImageName)
-                                    .resizable()
-                                    .frame(
-                                        width: Constants.imageFrame,
-                                        height: Constants.imageFrame)
-                                    .cornerRadius(Constants.colorCornerRadius)
-                                    .offset(
-                                        x: Constants.offsetX,
-                                        y: Constants.imageOffsetY)
-                                Text("\(carHoursePower[segmentIndex])")
-                                    .offset(
-                                        x: Constants.offsetX,
-                                        y: Constants.textOffsetY)
-                            }
-                
-                            Form {
-                                Picker(selection: $segmentBuy) {
-                                    ForEach(0..<buy.count) {
-                                        Text(buy[$0])
-                                    }
-                                } label: {
-                                    Text(Constants.typeOfBuy)
-                                }.pickerStyle(.navigationLink)
-                                
-                                Picker(selection: $segmentComplectation) {
-                                    ForEach(0..<complectation.count) {
-                                        Text(complectation[$0])
-                                    }
-                                } label: {
-                                    Text(Constants.complectationTitle)
-                                }.pickerStyle(.navigationLink)
-                                
-                            }.scrollDisabled(true)
-                                .frame(height: Constants.formFrameHeight)
-                                .offset(y: Constants.formOffsetY)
-                        }
-                    }
-                    Spacer().frame(height: Constants.spacerForFormHeight)
-                    segmentControl
-                    Spacer().frame(height: Constants.spacerForSegmentHeight)
-                    testDriveButton
-                    sharedButton
-                }
-            }
-        }
+    private var speedColor: some View {
+        Color.purple
+            .frame(
+                width: Constants.colorFrameWidth,
+                height: Constants.colorFrameHeight)
+            .cornerRadius(Constants.colorCornerRadius)
+            .offset(
+                x: -Constants.offsetX,
+                y: Constants.offsetY)
     }
     
-    // MARK: - Private Methods
+    private var speedImage: some View {
+        Image(Constants.speedImageName)
+            .resizable()
+            .frame(
+                width: Constants.imageFrame,
+                height: Constants.imageFrame)
+            .cornerRadius(Constants.colorCornerRadius)
+            .offset(
+                x: -Constants.offsetX,
+                y: Constants.imageOffsetY)
+    }
+    
+    private var speedText: some View {
+        Text("\(parameters[segmentIndex])")
+            .offset(
+                x: -Constants.offsetX,
+                y: Constants.textOffsetY)
+    }
+    
+    private var seatsColor: some View {
+        Color.purple
+            .frame(
+                width: Constants.colorFrameWidth,
+                height: Constants.colorFrameHeight)
+            .cornerRadius(Constants.colorCornerRadius)
+            .offset(
+                x: Constants.zeroForFrame,
+                y: Constants.offsetY)
+    }
+    
+    private var seatsImage: some View {
+        Image(Constants.seatsImageName)
+            .resizable()
+            .frame(
+                width: Constants.imageFrame,
+                height: Constants.imageFrame)
+            .cornerRadius(Constants.colorCornerRadius)
+            .offset(
+                x: Constants.zeroForFrame,
+                y: Constants.imageOffsetY)
+    }
+    
+    private var seatsText: some View {
+        Text("\(carSeats[segmentIndex])")
+            .offset(
+                x: Constants.zeroForFrame,
+                y: Constants.textOffsetY)
+    }
+    
+    private var pistonColor: some View {
+        Color.purple
+            .frame(
+                width: Constants.colorFrameWidth,
+                height: Constants.colorFrameHeight)
+            .cornerRadius(Constants.colorCornerRadius)
+            .offset(
+                x: Constants.offsetX,
+                y: Constants.offsetY)
+    }
+    
+    private var pistonImage: some View {
+        Image(Constants.pistonImageName)
+            .resizable()
+            .frame(
+                width: Constants.imageFrame,
+                height: Constants.imageFrame)
+            .cornerRadius(Constants.colorCornerRadius)
+            .offset(
+                x: Constants.offsetX,
+                y: Constants.imageOffsetY)
+    }
+    
+    private var pistonText: some View {
+        Text("\(carHoursePower[segmentIndex])")
+            .offset(
+                x: Constants.offsetX,
+                y: Constants.textOffsetY)
+    }
+    
+    private var typeOfBuyPicker: some View {
+        Picker(selection: $segmentBuy) {
+            ForEach(0..<buy.count) {
+                Text(buy[$0])
+            }
+        } label: {
+            Text(Constants.typeOfBuy)
+        }.pickerStyle(.navigationLink)
+    }
+    
+    private var typeOfComplectationPicker: some View {
+        Picker(selection: $segmentComplectation) {
+            ForEach(0..<complectation.count) {
+                Text(complectation[$0])
+            }
+        } label: {
+            Text(Constants.complectationTitle)
+        }.pickerStyle(.navigationLink)
+    }
+    
     private var carName: some View {
         Text("\(cars[segmentIndex])")
             .font(.largeTitle)
@@ -248,6 +290,7 @@ struct CarsView: View {
     }
 }
 
+/// Отображение экрана с машинами
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         CarsView()
