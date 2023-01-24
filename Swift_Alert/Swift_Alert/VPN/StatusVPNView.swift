@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Статус впн
+/// Экран с данными о подключении к впн
 struct StatusVPNView: View {
 
     // MARK: - Constants
@@ -19,6 +19,7 @@ struct StatusVPNView: View {
         static let ipAddressTitle = "IP Address"
         static let ipTitle = "127.0.0.1"
         static let offset: CGFloat = 180
+        static let offsetFortext: CGFloat = 140
         static let vstackSpacing: CGFloat = 10
         static let textFrameLeading: CGFloat = 130
         static let textFrameTrailing: CGFloat = 70
@@ -146,6 +147,6 @@ struct StatusVPNView: View {
             .frame(
                 width: Constats.textFrameWidth,
                 height: Constats.textFrameHeight)
-            .offset(y: Constats.offset)
+            .offset(y: Constats.offsetFortext)
     }
 }
