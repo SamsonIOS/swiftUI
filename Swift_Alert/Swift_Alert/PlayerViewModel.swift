@@ -19,10 +19,14 @@ final class PlayerViewModel: ObservableObject {
         static let typeOfSong = "mp3"
     }
     
-    // MARK: - Published Properties
+    // MARK: - Public Properties
     @Published var maxDutarion = 0.0
     @Published var currentTime: Float = 0.0
     @Published var isPlaying = false
+    @Published var progress: Double = 0.0
+    @Published var isDownloadShown = false
+    @Published var isSharedShown = false
+    @Published var isSaveShown = false
     
     // MARK: - Private Properties
     private var currentSong = 0
@@ -47,7 +51,6 @@ final class PlayerViewModel: ObservableObject {
             playSong(number: currentSong)
             setTime(value: currentTime)
         }
-        
     }
     
     func stop() {
@@ -76,20 +79,18 @@ final class PlayerViewModel: ObservableObject {
     }
     
     func getTimeLeft() -> Date {
-        let progresSong = Date(timeIntervalSince1970: maxDutarion - Double(currentTime))
-           return progresSong
-        }
+        Date(timeIntervalSince1970: maxDutarion - Double(currentTime))
+    }
     
     func getStartTime() -> Date {
-        let progresSong = Date(timeIntervalSince1970: Double(currentTime))
-        return progresSong
+        Date(timeIntervalSince1970: Double(currentTime))
     }
     
     func getSongImageName() -> String {
-            guard currentSong < songs.count
+        guard currentSong < songs.count
         else { return Constats.emptyString }
         return songs[currentSong].image
-        }
+    }
     
     func getSongName() -> String {
         guard currentSong < songs.count
@@ -98,6 +99,7 @@ final class PlayerViewModel: ObservableObject {
     }
     
     // MARK: - Private Methods
+    
     private func playSong(number: Int) {
         if number >= songs.count {
             currentSong = Constats.zeroInt

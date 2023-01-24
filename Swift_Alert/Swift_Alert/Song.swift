@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Модель трека
+/// Информация о треке
 struct SongInfo {
     /// Имя трека
     let name: String

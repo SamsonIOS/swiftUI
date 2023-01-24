@@ -78,19 +78,12 @@ struct ContentView: View {
         }
     }
     
-    // MARK: - StateObject private properties
+    // MARK: - Private properties
     @StateObject private var viewModel = PlayerViewModel()
-    
-    // MARK: - State private properties
-    
-    @State private var progress: Double = 0.0
-    @State private var isDownload = false
-    @State private var isShared = false
-    @State private var isSave = false
     
     // MARK: - Private properties
     
-    private var getSongName: some View {
+    private var songView: some View {
         Text(viewModel.getSongName())
             .frame(
                 width: Constants.songNameWidth,
@@ -101,17 +94,17 @@ struct ContentView: View {
             .font(.callout)
     }
     
-    private var getSongImage: some View {
-        return Image(viewModel.getSongImageName())
+    private var songImageView: some View {
+        Image(viewModel.getSongImageName())
             .resizable()
             .aspectRatio(Constants.songImageAspectRatio, contentMode: .fit)
             .padding()
             .cornerRadius(Constants.songImageCornerRadius)
     }
     
-    private var downloadButton: some View {
+    private var downloadButtonView: some View {
         Button {
-            isDownload = true
+            self.viewModel.isDownload = true
         } label: {
             Text(Constants.downloadButtonTitle)
                 .frame(
@@ -120,7 +113,8 @@ struct ContentView: View {
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(Constants.downloadButtonCornerRadius)
-        }.confirmationDialog(Constants.confirmationDialogTitle, isPresented: $isDownload,
+        }
+        .confirmationDialog(Constants.confirmationDialogTitle, isPresented: $viewModel.isDownload,
             titleVisibility: .visible) {
             Button(Constants.firstButtonTitleOfActionSheet,
                    role: .destructive) {}
@@ -130,9 +124,9 @@ struct ContentView: View {
         }
     }
     
-    private var sharedButton: some View {
+    private var sharedButtonView: some View {
         Button {
-            self.isShared = true
+            self.viewModel.isShared = true
         } label: {
             Text(Constants.sharedButtonTitle)
                 .frame(
@@ -141,30 +135,33 @@ struct ContentView: View {
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(Constants.sharedButtonCornerRadius)
-        }.alert(isPresented: $isShared) {
+        }
+        .alert(isPresented: $viewModel.isShared) {
             Alert(title: Text(Constants.sharedButtonAlertTitle), message: Text("\(viewModel.getSongName())"), primaryButton: .destructive(
                 Text(Constants.sharedButtonAlertButtonTitle)),
                   secondaryButton: .cancel())
         }
     }
     
-    private var slider: some View {
+    private var sliderView: some View {
         Slider(value: Binding(get: {
             Double(viewModel.currentTime)
         }, set: { newValue in
             viewModel.currentTime = Float(newValue)
             self.viewModel.setTime(value: Float(viewModel.currentTime))
         }), in: 0...viewModel.maxDutarion) {
-            Text("\(progress)")
+            Text("\(viewModel.progress)")
         } minimumValueLabel: {
-            Text(verbatim: (viewModel.getStartTime().formatted(.dateTime.minute().second())))
+            Text(verbatim: (viewModel.getStartTime()
+                .formatted(.dateTime.minute().second())))
         } maximumValueLabel: {
-            Text(verbatim: (viewModel.getTimeLeft().formatted(.dateTime.minute().second())))
+            Text(verbatim: (viewModel.getTimeLeft()
+                .formatted(.dateTime.minute().second())))
             
         }
     }
     
-    private var nextSongButton: Button<some View> {
+    private var nextSongButtonView: Button<some View> {
         Button {
             self.viewModel.nextSong()
             viewModel.isPlaying = true
@@ -180,7 +177,7 @@ struct ContentView: View {
         }
     }
     
-    private var backSongButton: Button<some View> {
+    private var backSongButtonView: Button<some View> {
         Button {
             self.viewModel.backSong()
         } label: {
@@ -195,7 +192,7 @@ struct ContentView: View {
         }
     }
     
-    private var startButton: Button<some View> {
+    private var startButtonView: Button<some View> {
         Button {
             if self.viewModel.isPlaying {
                 self.viewModel.play()
@@ -216,7 +213,7 @@ struct ContentView: View {
         }
     }
     
-    private var stopButton: Button<some View> {
+    private var stopButtonView: Button<some View> {
         Button {
             viewModel.currentTime = Constants.zeroCurrentTime
             viewModel.stop()
