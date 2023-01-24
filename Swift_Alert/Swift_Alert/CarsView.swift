@@ -53,59 +53,62 @@ struct CarsView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    carName
-                    priceTitle
-                    Spacer().frame(height: Constants.spacerForPriceTitle)
-                    carImage
+                    carNameView
+                    priceTitleView
+                    Spacer()
+                        .frame(height: Constants.spacerForPriceTitle)
+                    carImageView
                     HStack {
                         ZStack {
                             Section {
-                                speedColor
-                                speedImage
-                                speedText
+                                speedColorView
+                                speedImageView
+                                speedTextView
                             }
                             
                             Section {
-                                seatsColor
-                                seatsImage
-                                seatsText
+                                seatsColorView
+                                seatsImageView
+                                seatsTextView
                             }
                             
                             Section {
-                                pistonColor
-                                pistonImage
-                                pistonText
+                                pistonColorView
+                                pistonImageView
+                                pistonTextView
                             }
                             
                             Form {
-                                typeOfBuyPicker
-                                typeOfComplectationPicker
+                                typeOfBuyPickerView
+                                typeOfComplectationPickerView
                                 
-                            }.scrollDisabled(true)
+                            }
+                            .scrollDisabled(true)
                                 .frame(height: Constants.formFrameHeight)
                                 .offset(y: Constants.formOffsetY)
                         }
                     }
-                    Spacer().frame(height: Constants.spacerForFormHeight)
-                    segmentControl
-                    Spacer().frame(height: Constants.spacerForSegmentHeight)
-                    testDriveButton
-                    sharedButton
+                    Spacer()
+                        .frame(height: Constants.spacerForFormHeight)
+                    segmentControlView
+                    Spacer()
+                        .frame(height: Constants.spacerForSegmentHeight)
+                    testDriveButtonView
+                    sharedButtonView
                 }
             }
         }
     }
     
-    // MARK: - @State
+    // MARK: - Private Properties
     
     @State private var segmentIndex = 0
     @State private var isToggle = false
     @State private var segmentBuy = 0
-    @State private var isTapOnButton = false
+    @State private var isTapOnButtonShown = false
     @State private var isThirdShown = false
     @State private var segmentComplectation = 0
     
-    // MARK: - Private Properties
     private var complectation = ["Люкс", "Базовая", "Спорт", "Комфорт+"]
     private var buy = ["Кредит", "Наличные"]
     private var cars = ["AUDI", "BWM", "LEXUS"]
@@ -117,7 +120,7 @@ struct CarsView: View {
     
     // MARK: - Private Methods
     
-    private var speedColor: some View {
+    private var speedColorView: some View {
         Color.purple
             .frame(
                 width: Constants.colorFrameWidth,
@@ -128,7 +131,7 @@ struct CarsView: View {
                 y: Constants.offsetY)
     }
     
-    private var speedImage: some View {
+    private var speedImageView: some View {
         Image(Constants.speedImageName)
             .resizable()
             .frame(
@@ -140,14 +143,14 @@ struct CarsView: View {
                 y: Constants.imageOffsetY)
     }
     
-    private var speedText: some View {
+    private var speedTextView: some View {
         Text("\(parameters[segmentIndex])")
             .offset(
                 x: -Constants.offsetX,
                 y: Constants.textOffsetY)
     }
     
-    private var seatsColor: some View {
+    private var seatsColorView: some View {
         Color.purple
             .frame(
                 width: Constants.colorFrameWidth,
@@ -158,7 +161,7 @@ struct CarsView: View {
                 y: Constants.offsetY)
     }
     
-    private var seatsImage: some View {
+    private var seatsImageView: some View {
         Image(Constants.seatsImageName)
             .resizable()
             .frame(
@@ -170,14 +173,14 @@ struct CarsView: View {
                 y: Constants.imageOffsetY)
     }
     
-    private var seatsText: some View {
+    private var seatsTextView: some View {
         Text("\(carSeats[segmentIndex])")
             .offset(
                 x: Constants.zeroForFrame,
                 y: Constants.textOffsetY)
     }
     
-    private var pistonColor: some View {
+    private var pistonColorView: some View {
         Color.purple
             .frame(
                 width: Constants.colorFrameWidth,
@@ -188,7 +191,7 @@ struct CarsView: View {
                 y: Constants.offsetY)
     }
     
-    private var pistonImage: some View {
+    private var pistonImageView: some View {
         Image(Constants.pistonImageName)
             .resizable()
             .frame(
@@ -200,14 +203,14 @@ struct CarsView: View {
                 y: Constants.imageOffsetY)
     }
     
-    private var pistonText: some View {
+    private var pistonTextView: some View {
         Text("\(carHoursePower[segmentIndex])")
             .offset(
                 x: Constants.offsetX,
                 y: Constants.textOffsetY)
     }
     
-    private var typeOfBuyPicker: some View {
+    private var typeOfBuyPickerView: some View {
         Picker(selection: $segmentBuy) {
             ForEach(0..<buy.count) {
                 Text(buy[$0])
@@ -217,7 +220,7 @@ struct CarsView: View {
         }.pickerStyle(.navigationLink)
     }
     
-    private var typeOfComplectationPicker: some View {
+    private var typeOfComplectationPickerView: some View {
         Picker(selection: $segmentComplectation) {
             ForEach(0..<complectation.count) {
                 Text(complectation[$0])
@@ -227,20 +230,20 @@ struct CarsView: View {
         }.pickerStyle(.navigationLink)
     }
     
-    private var carName: some View {
+    private var carNameView: some View {
         Text("\(cars[segmentIndex])")
             .font(.largeTitle)
             .fontDesign(.monospaced)
             .offset(y: Constants.carsTextOffsetY)
     }
     
-    private var priceTitle: some View {
+    private var priceTitleView: some View {
         Text("\(price[segmentIndex])")
             .font(.title)
             .offset(y: Constants.priceOffsetY)
     }
     
-    private var carImage: some View {
+    private var carImageView: some View {
         Image("\(carsImageName[segmentIndex])")
             .resizable()
             .frame(
@@ -249,7 +252,7 @@ struct CarsView: View {
             .padding(Constants.carsImagePadding)
     }
     
-    private var segmentControl: some View {
+    private var segmentControlView: some View {
         Picker(selection: $segmentIndex,
                label: Text(Constants.emptyString)) {
             ForEach(Int(Constants.zeroForFrame)..<cars.count) {
@@ -262,23 +265,26 @@ struct CarsView: View {
          .offset(y: Constants.fiftyOffsetY)
     }
     
-    private var testDriveButton: some View {
+    private var testDriveButtonView: some View {
         Button {
-            self.isTapOnButton = true
+            self.isTapOnButtonShown = true
         } label: {
             Text(Constants.testDriveTitle)
-        }.alert(isPresented: $isTapOnButton) {
+        }
+        .alert(isPresented: $isTapOnButtonShown) {
             Alert(title: Text(Constants.testDriveNotAccessTitle))
-        }.offset(y: -Constants.fiftyOffsetY)
+        }
+        .offset(y: -Constants.fiftyOffsetY)
     }
     
-    private var sharedButton: some View {
+    private var sharedButtonView: some View {
         Button(action: {
             self.isThirdShown = true
         }, label: { Text(Constants.sharedTitle)
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
-        }).sheet(isPresented: $isThirdShown) {
+        })
+        .sheet(isPresented: $isThirdShown) {
             ActivityView(activityItems:[
                 "\(Constants.typeOfBuy)\(buy[segmentBuy])",
                 "\(Constants.modelCarTitle)\(cars[segmentIndex])",
@@ -286,7 +292,8 @@ struct CarsView: View {
                 "\(Constants.powerOfEngine)\(carHoursePower[segmentIndex])",
                 "\(Constants.priceTitle)\(price[segmentIndex])",
                 "\(Constants.complectationTitle)\(complectation[segmentComplectation])"])
-        }.offset(y: -Constants.fiftyOffsetY)
+        }
+        .offset(y: -Constants.fiftyOffsetY)
     }
 }
 
