@@ -267,7 +267,7 @@ struct CarsView: View {
     
     private var testDriveButtonView: some View {
         Button {
-            self.isTapOnButtonShown = true
+            self.isTapOnButtonShown  = true
         } label: {
             Text(Constants.testDriveTitle)
         }
