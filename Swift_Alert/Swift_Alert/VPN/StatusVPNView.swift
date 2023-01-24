@@ -9,7 +9,8 @@ import SwiftUI
 
 /// Статус впн
 struct StatusVPNView: View {
-    @StateObject private var viewModel = StatusVPNViewModel()
+
+    // MARK: - Constants
     
     private enum Constats {
         static let imageCountryFrame: CGFloat = 250
@@ -31,6 +32,8 @@ struct StatusVPNView: View {
         static let tabItemText = "VPN"
     }
     
+    // MARK: - Body
+    
     var body: some View {
         VStack {
             countryImageView
@@ -41,10 +44,12 @@ struct StatusVPNView: View {
                     ipAddressTitleView
                     ipTitleView
                 }
+                
                 HStack {
                     receivedTitleView
                     receivedTextView
                 }
+                
                 HStack {
                     sentTitleView
                     sentValueView
@@ -57,6 +62,11 @@ struct StatusVPNView: View {
             Text(Constats.tabItemText)
         }
     }
+    
+    // MARK: - Private properties
+    @StateObject private var viewModel = StatusVPNViewModel()
+    
+    // MARK: - Private Methods
     
     private var countryImageView: some View {
         Image(viewModel.getCountryImage())

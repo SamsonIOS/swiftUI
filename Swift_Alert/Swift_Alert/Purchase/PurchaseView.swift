@@ -7,9 +7,8 @@
 
 import SwiftUI
 
+/// Экран с описанием тарифов
 struct PurchaseView: View {
-    
-    @EnvironmentObject private var viewModel: PurchaseViewModel
     
     // MARK: Constants
     
@@ -32,6 +31,40 @@ struct PurchaseView: View {
         static let tabItemImageName = "person.fill"
         static let tabItemText = "Purchase"
     }
+    
+    // MARK: - Body
+    
+    var body: some View {
+        VStack {
+            Section {
+                Text(Constants.privacyMattersTitle)
+                    .font(.largeTitle)
+                Text(Constants.infoVPNTitle)
+                    .padding()
+                sevenDaysImageView
+                Text(Constants.infoAboutRate)
+                sevenDaysBuyButtonView
+            }
+            Spacer()
+            
+            Section {
+                thirtyDaysImageView
+                Text(Constants.secondInfoAboutRate)
+                thirtyDaysBuyButtonView
+            }
+            Spacer()
+        }
+        .tabItem {
+            Image(systemName: Constants.tabItemImageName)
+            Text(Constants.tabItemText)
+        }
+    }
+    
+    // MARK: - Private properties
+    
+    @EnvironmentObject private var viewModel: PurchaseViewModel
+    
+    // MARK: - Private Methods
     
     private var sevenDaysImageView: some View {
         Image(Constants.firstRateImageName)
@@ -73,31 +106,5 @@ struct PurchaseView: View {
         .foregroundColor(.white)
         .cornerRadius(Constants.buttonCornerRadius)
         .tag(Constants.secondButtonTag)
-    }
-    
-    var body: some View {
-        VStack {
-            Section {
-                Text(Constants.privacyMattersTitle)
-                    .font(.largeTitle)
-                Text(Constants.infoVPNTitle)
-                    .padding()
-                sevenDaysImageView
-                Text(Constants.infoAboutRate)
-                sevenDaysBuyButtonView
-            }
-            Spacer()
-            
-            Section {
-                thirtyDaysImageView
-                Text(Constants.secondInfoAboutRate)
-                thirtyDaysBuyButtonView
-            }
-            Spacer()
-        }
-        .tabItem {
-            Image(systemName: Constants.tabItemImageName)
-            Text(Constants.tabItemText)
-        }
     }
 }

@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+/// Экран с выбранным тарифом
 struct BacketView: View {
-    @EnvironmentObject private var viewModel: PurchaseViewModel
-    @StateObject private var backetViewModel = BacketViewModel()
+   
+    // MARK: - Constants
     
     private enum Constants {
         static let vpnImageName = "vpn"
@@ -29,6 +30,8 @@ struct BacketView: View {
         static let tabItemText = "Корзина"
     }
     
+    // MARK: - Body
+    
     var body: some View {
         VStack {
             vpnImageView
@@ -37,14 +40,19 @@ struct BacketView: View {
             rateView
             buyButtonView
         }
-        
-        
         .tabItem {
             Image(systemName: Constants.tabItemImageName)
             Text(Constants.tabItemText)
         }
         .environmentObject(viewModel)
     }
+    
+    // MARK: - Private properties
+    
+    @EnvironmentObject private var viewModel: PurchaseViewModel
+    @StateObject private var backetViewModel = BacketViewModel()
+    
+    // MARK: - Private Methods
     
     private var vpnImageView: some View {
         Image(Constants.vpnImageName)
