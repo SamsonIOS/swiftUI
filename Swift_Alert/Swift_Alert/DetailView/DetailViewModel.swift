@@ -5,22 +5,15 @@ import SwiftUI
 
 /// Вью модель экрана с мебелью
 final class DetailViewModel: ObservableObject {
-    // MARK: - Constants
-
-    private enum Constants {
-        static var emptyText = ""
-        static var minTextNumber = 0
-        static var maxTextNumber = 100
-    }
 
     // MARK: - Public Properties
 
-    @Published var lastDescriptionText = Constants.emptyText
+    @Published var lastDescriptionText = ""
 
     // MARK: - Public Methods
 
     func descriptionText(totalChars: String) -> String {
-        if totalChars.count <= Constants.maxTextNumber {
+        if totalChars.count <= 100 {
             lastDescriptionText = totalChars
             return lastDescriptionText
         } else {
