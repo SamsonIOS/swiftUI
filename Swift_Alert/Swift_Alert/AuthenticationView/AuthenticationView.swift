@@ -37,7 +37,7 @@ struct AuthenticationView: View {
             numberTextEditorView
             passwordTextEditorView
             Spacer()
-            detailNavigationLink
+            detailNavigationLinkView
             signUpTextView
             NavigationLink(destination: VerificationView()) {
                 checkTextView
@@ -55,14 +55,16 @@ struct AuthenticationView: View {
     // MARK: - Private Properties
 
     @StateObject private var viewModel = AuthenticationViewModel()
-    @FocusState private var numberIsFocused: Bool
-    @FocusState private var passwordIsFocused: Bool
+
+    @FocusState private var isNumberIsFocused: Bool
+    @FocusState private var isPasswordIsFocused: Bool
+
     @State private var phoneNumberText = ""
     @State private var passwordText = ""
     @State private var isAlertShown = false
     @State private var selectionViewText: String?
 
-    private var detailNavigationLink: some View {
+    private var detailNavigationLinkView: some View {
         NavigationLink(
             destination: DetailView(),
             tag: Constants.detailViewTagText,
@@ -98,12 +100,12 @@ struct AuthenticationView: View {
                 .font(.system(size: Constants.largeFontSize))
                 .keyboardType(.numberPad)
                 .padding(.horizontal, Constants.defaultHorizontalSpacing)
-                .focused($numberIsFocused)
+                .focused($isNumberIsFocused)
                 .onChange(of: phoneNumberText) { totalChars in
                     phoneNumberText = viewModel.phoneNumberText(totalChars: totalChars)
                     if viewModel.checkPhoneNumberCount(totalChars: totalChars) {
-                        numberIsFocused = false
-                        passwordIsFocused = true
+                        isNumberIsFocused = false
+                        isPasswordIsFocused = true
                     }
                 }
             Rectangle()
@@ -123,7 +125,7 @@ struct AuthenticationView: View {
             }
             SecureField(Constants.placeholderPasswordText, text: $passwordText)
                 .font(.system(size: Constants.largeFontSize))
-                .focused($passwordIsFocused)
+                .focused($isPasswordIsFocused)
                 .onChange(of: passwordText) { totalChars in
                     passwordText = viewModel.passwordText(totalChars: totalChars)
                 }
@@ -138,12 +140,12 @@ struct AuthenticationView: View {
         Button(Constants.signUpText) {
             selectionViewText = viewModel.getResultUserCheck()
         }
-        .redButtonModifier()
+        .redButtonModifierView()
     }
 
     private var checkTextView: some View {
         Text(Constants.checkButtonText)
-            .redButtonModifier()
+            .redButtonModifierView()
     }
 
     private var forgotPasswordButtonView: some View {

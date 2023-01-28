@@ -48,6 +48,7 @@ struct DetailView: View {
     // MARK: - Private Properties
 
     @StateObject private var viewModel = DetailViewModel()
+
     @State private var descriptionText = ""
     @State private var descriptionTextCount = 0
     @State private var descriptionTextMaxCount = 150

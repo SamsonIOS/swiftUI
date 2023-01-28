@@ -5,7 +5,6 @@ import SwiftUI
 
 /// Вью модель экрана с мебелью
 final class DetailViewModel: ObservableObject {
-
     // MARK: - Public Properties
 
     @Published var lastDescriptionText = ""

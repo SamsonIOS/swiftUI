@@ -7,11 +7,11 @@ import SwiftUI
 extension View {
     // MARK: - Public Methods
 
-    func redButtonModifier() -> some View {
+    func redButtonModifierView() -> some View {
         modifier(RedButtonModifier())
     }
 
-    func verificationTextEditorModifier() -> some View {
+    func verificationTextEditorModifierView() -> some View {
         modifier(VerificationTextEditorModifier())
     }
 }

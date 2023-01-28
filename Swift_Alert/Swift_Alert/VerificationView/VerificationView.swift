@@ -44,10 +44,12 @@ struct VerificationView: View {
     // MARK: - Private Properties
 
     @StateObject private var viewModel = VerificationViewModel()
+
     @FocusState private var firstNumberIsFocused: Bool
     @FocusState private var secondNumberIsFocused: Bool
     @FocusState private var thirdNumberIsFocused: Bool
     @FocusState private var fourNumberIsFocused: Bool
+
     @State private var firstVerificationNumber = Constants.emptyText
     @State private var secondVerificationNumber = Constants.emptyText
     @State private var thirdVerificationNumber = Constants.emptyText
@@ -69,7 +71,7 @@ struct VerificationView: View {
     private var smsNumberView: some View {
         HStack {
             TextField(Constants.zeroText, text: $firstVerificationNumber)
-                .verificationTextEditorModifier()
+                .verificationTextEditorModifierView()
                 .focused($firstNumberIsFocused)
                 .onChange(of: firstVerificationNumber) { totalChars in
                     firstVerificationNumber = viewModel.smsText(totalChars: totalChars)
@@ -77,7 +79,7 @@ struct VerificationView: View {
                 }
 
             TextField(Constants.zeroText, text: $secondVerificationNumber)
-                .verificationTextEditorModifier()
+                .verificationTextEditorModifierView()
                 .focused($secondNumberIsFocused)
                 .onChange(of: secondVerificationNumber) { totalChars in
                     secondVerificationNumber = viewModel.smsText(totalChars: totalChars)
@@ -85,7 +87,7 @@ struct VerificationView: View {
                 }
 
             TextField(Constants.zeroText, text: $thirdVerificationNumber)
-                .verificationTextEditorModifier()
+                .verificationTextEditorModifierView()
                 .focused($thirdNumberIsFocused)
                 .onChange(of: thirdVerificationNumber) { totalChars in
                     thirdVerificationNumber = viewModel.smsText(totalChars: totalChars)
@@ -93,7 +95,7 @@ struct VerificationView: View {
                 }
 
             TextField(Constants.zeroText, text: $fourVerificationNumber)
-                .verificationTextEditorModifier()
+                .verificationTextEditorModifierView()
                 .focused($fourNumberIsFocused)
                 .onChange(of: fourVerificationNumber) { totalChars in
                     fourVerificationNumber = viewModel.smsText(totalChars: totalChars)
@@ -107,7 +109,7 @@ struct VerificationView: View {
             isActionSheetShown = true
             viewModel.progressViewActivate()
         }
-        .redButtonModifier()
+        .redButtonModifierView()
 
         .actionSheet(isPresented: $isActionSheetShown) {
             ActionSheet(title: Text(Constants.bugText))

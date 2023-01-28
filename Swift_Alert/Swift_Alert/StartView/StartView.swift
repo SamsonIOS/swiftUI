@@ -76,7 +76,7 @@ struct StartView: View {
             case let .failure(error):
                 Text(error.localizedDescription)
             @unknown default:
-                fatalError()
+                EmptyView()
             }
         }
     }
