@@ -10,9 +10,6 @@ import SwiftUI
 /// Главный таб бар
 struct MainTabView: View {
     
-    // MARK: - @StateObject
-    @StateObject private var viewModel = PurchaseViewModel()
-    
     // MARK: - Body
     var body: some View {
         TabView {
@@ -23,9 +20,11 @@ struct MainTabView: View {
         .environmentObject(viewModel)
     }
     
+    // MARK: - Private properties
+    @StateObject private var viewModel = PurchaseViewModel()
+    
 }
 
-/// Пре-показ главного таб бара
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView()

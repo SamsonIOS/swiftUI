@@ -15,16 +15,16 @@ final class PurchaseViewModel: ObservableObject {
     
     // MARK: - Private properties
     
-    private var ratePrice = [99, 179]
-    private var infoRate = ["7 дней", "30 дней"]
+    private var ratePricec = [99, 179]
+    private var infoRates = ["7 дней", "30 дней"]
     
     // MARK: - Public Methods
     
     func getPrice() -> Int {
-        ratePrice[index]
+        ratePricec[index]
     }
     
     func getTarif() -> String {
-        infoRate[index]
+        infoRates[index]
     }
 }

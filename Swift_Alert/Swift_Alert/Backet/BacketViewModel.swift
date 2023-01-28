@@ -12,5 +12,5 @@ final class BacketViewModel: ObservableObject {
     
     // MARK: - Public properties
     
-    @Published var isBuy = false
+    @Published var isBuyShown = false
 }

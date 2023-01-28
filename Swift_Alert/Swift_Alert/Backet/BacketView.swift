@@ -70,7 +70,7 @@ struct BacketView: View {
     
     private var buyButtonView: some View {
         Button {
-            self.backetViewModel.isBuy = true
+            self.backetViewModel.isBuyShown = true
         } label: {
             Text(Constants.buyText)
                 .frame(
@@ -80,7 +80,8 @@ struct BacketView: View {
                 .foregroundColor(.white)
                 .cornerRadius(Constants.buttonBuyCornerRadius)
             
-        }.alert(isPresented: $backetViewModel.isBuy, content: {
+        }
+        .alert(isPresented: $backetViewModel.isBuy, content: {
             Alert(title: Text(Constants.alertTitleText))
         })
         .offset(y: Constants.alerOffsetY)
