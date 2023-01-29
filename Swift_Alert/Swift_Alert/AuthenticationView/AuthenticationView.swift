@@ -66,7 +66,7 @@ struct AuthenticationView: View {
 
     private var detailNavigationLinkView: some View {
         NavigationLink(
-            destination: DetailView(),
+            destination: MainTabBarView(),
             tag: Constants.detailViewTagText,
             selection: $selectionViewText,
             label: {
@@ -102,7 +102,8 @@ struct AuthenticationView: View {
                 .padding(.horizontal, Constants.defaultHorizontalSpacing)
                 .focused($isNumberIsFocused)
                 .onChange(of: phoneNumberText) { totalChars in
-                    phoneNumberText = viewModel.phoneNumberText(totalChars: totalChars)
+                    phoneNumberText = viewModel.phoneNumberFormatter.string(for: totalChars) ?? viewModel
+                        .phoneNumberText(totalChars: totalChars)
                     if viewModel.checkPhoneNumberCount(totalChars: totalChars) {
                         isNumberIsFocused = false
                         isPasswordIsFocused = true

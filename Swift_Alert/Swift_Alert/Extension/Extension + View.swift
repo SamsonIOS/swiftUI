@@ -14,6 +14,18 @@ extension View {
     func verificationTextEditorModifierView() -> some View {
         modifier(VerificationTextEditorModifier())
     }
+
+    func headerBackgroundView(height: CGFloat) -> some View {
+        Rectangle()
+            .fill(
+                LinearGradient(
+                    colors: [Color.yellow, Color.red],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
+            .frame(width: UIScreen.main.bounds.width, height: height)
+    }
 }
 
 /// Красная округленная кнопка

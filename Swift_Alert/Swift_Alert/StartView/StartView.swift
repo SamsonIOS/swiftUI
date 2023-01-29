@@ -28,7 +28,7 @@ struct StartView: View {
                 titleTextView
                 randomImageView
                 Spacer()
-                NavigationLink(destination: DetailView()) {
+                NavigationLink(destination: MainTabBarView()) {
                     getStartedTextView
                 }
                 Spacer()
