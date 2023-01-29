@@ -34,7 +34,7 @@ struct NotificationsView: View {
 
     @Environment(\.presentationMode) private var presentation
 
-    @StateObject private var viewModel = NotificationsViewModel()
+    @StateObject private var notificationViewModel = NotificationsViewModel()
 
     @State private var isAlertShow = false
 
@@ -86,8 +86,8 @@ struct NotificationsView: View {
                     .shadow(radius: 5)
                     .padding()
                 VStack {
-                    ForEach(Constants.zeroNumber ..< viewModel.settings.count) { index in
-                        settingView(setting: viewModel.settings[index], index: index)
+                    ForEach(Constants.zeroNumber ..< notificationViewModel.settings.count) { index in
+                        settingView(setting: notificationViewModel.settings[index], index: index)
                     }
                 }
             }
@@ -145,14 +145,14 @@ struct NotificationsView: View {
 
     private func orangeToggleView(index: Int) -> some View {
         ZStack {
-            if viewModel.settings[index].isOn {
+            if notificationViewModel.settings[index].isOn {
                 onToggleView
             } else {
                 offToggleView
             }
         }
         .onTapGesture {
-            viewModel.settings[index].isOn.toggle()
+            notificationViewModel.settings[index].isOn.toggle()
         }
     }
 }

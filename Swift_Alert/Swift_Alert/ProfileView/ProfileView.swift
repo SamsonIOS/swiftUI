@@ -111,6 +111,27 @@ struct ProfileView: View {
 
     // MARK: - Private Methods
 
+    private func numberOfNotification(countNote: Int) -> some View {
+        ZStack {
+            Circle()
+                .fill(
+                    LinearGradient(
+                        colors: [Color.yellow, Color.orange],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+                .frame(
+                    width: Constants.circleFrame,
+                    height: Constants.circleFrame
+                )
+            Text("\(countNote)")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+        }
+    }
+
     private func menuView(
         imageName: String,
         menuName: String,
@@ -131,24 +152,7 @@ struct ProfileView: View {
                 .foregroundColor(.black)
             Spacer()
             if isNotification {
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: [Color.yellow, Color.orange],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .frame(
-                            width: Constants.circleFrame,
-                            height: Constants.circleFrame
-                        )
-                    Text("\(countNote)")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                }
+                numberOfNotification(countNote: countNote)
             }
         }
         .frame(height: 40)

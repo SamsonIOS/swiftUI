@@ -11,7 +11,7 @@ final class PhoneNumberFormatter: Formatter {
         guard let string = obj as? String else {
             return nil
         }
-        return addSpaceBetweenEverySymbol(string)
+        return string.phoneFromat()
     }
 
     override func getObjectValue(
@@ -19,7 +19,7 @@ final class PhoneNumberFormatter: Formatter {
         for string: String,
         errorDescription _: AutoreleasingUnsafeMutablePointer<NSString?>?
     ) -> Bool {
-        obj?.pointee = addSpaceBetweenEverySymbol(string) as AnyObject
+        obj?.pointee = string.phoneFromat() as AnyObject
         return true
     }
 }

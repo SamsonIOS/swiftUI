@@ -24,7 +24,7 @@ struct ProductsView: View {
         VStack {
             headerView
             ScrollView(showsIndicators: false) {
-                ForEach(Constants.zeroNumber ..< viewModel.furnitures.count) { index in
+                ForEach(Constants.zeroNumber ..< productViewModel.furnitures.count) { index in
                     furnitureView(index: index)
                 }
             }
@@ -35,7 +35,7 @@ struct ProductsView: View {
 
     // MARK: - Private Properties
 
-    @StateObject private var viewModel = ProductsViewModel()
+    @StateObject private var productViewModel = ProductsViewModel()
 
     private var headerView: some View {
         ZStack {
@@ -44,7 +44,7 @@ struct ProductsView: View {
                 Spacer()
                     .frame(height: 40)
                 searchHeaderView
-                Text("\(Constants.resultPriceText) \(viewModel.getSumPrice())")
+                Text("\(Constants.resultPriceText) \(productViewModel.getSumPrice())")
                     .foregroundColor(.white)
                     .font(Font.system(size: 25, weight: .bold))
             }
@@ -96,14 +96,14 @@ struct ProductsView: View {
         ZStack {
             backgroundFurnitureView
             HStack {
-                Image(systemName: viewModel.furnitures[index].imageName)
+                Image(systemName: productViewModel.furnitures[index].imageName)
                     .resizable()
                     .frame(width: 50, height: 50)
                     .foregroundColor(.orange)
                 Spacer()
                 descriptionFurnitureView(index: index)
                 Spacer()
-                priceFurnitureView(furniture: viewModel.furnitures[index])
+                priceFurnitureView(furniture: productViewModel.furnitures[index])
             }
             .frame(width: UIScreen.main.bounds.width - 100, height: 80)
         }
@@ -125,22 +125,22 @@ struct ProductsView: View {
 
     private func descriptionFurnitureView(index: Int) -> some View {
         VStack(spacing: 5) {
-            Text(viewModel.furnitures[index].name)
+            Text(productViewModel.furnitures[index].name)
                 .font(Font.system(size: 20, weight: .bold))
                 .frame(height: 30)
             HStack {
                 Button(Constants.minusText) {
-                    viewModel.reduceFurnitureCount(index: index)
+                    productViewModel.reduceFurnitureCount(index: index)
                 }
                 .foregroundColor(.black)
                 .font(Font.system(size: 20, weight: .bold))
-                Text("\(viewModel.furnitures[index].count)")
+                Text("\(productViewModel.furnitures[index].count)")
                     .foregroundColor(.black)
                     .font(Font.system(size: 20, weight: .bold))
                     .frame(width: 40, height: 30)
                     .border(.gray)
                 Button(Constants.plusText) {
-                    viewModel.increaseFurnitureCount(index: index)
+                    productViewModel.increaseFurnitureCount(index: index)
                 }
                 .foregroundColor(.black)
                 .font(Font.system(size: 20, weight: .bold))
