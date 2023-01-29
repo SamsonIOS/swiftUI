@@ -19,6 +19,7 @@ final class AuthenticationViewModel: ObservableObject {
 
     @Published var lastPasswordText = Constants.emptyText
     @Published var lastNumberText = Constants.emptyText
+    @Published var phoneNumberFormatter = PhoneNumberFormatter()
 
     // MARK: - Public Methods
 
