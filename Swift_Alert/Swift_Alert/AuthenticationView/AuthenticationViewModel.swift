@@ -43,12 +43,11 @@ final class AuthenticationViewModel: ObservableObject {
     // MARK: - Public Methods
 
     func phoneNumberText(totalChars: String) -> String {
-        if totalChars.count <= Constants.phoneNumber {
-            lastNumberText = totalChars.phoneFromat()
-            return lastNumberText
-        } else {
+        guard totalChars.count <= Constants.phoneNumber else {
             return lastNumberText
         }
+        lastNumberText = totalChars
+        return lastNumberText
     }
 
     func checkPhoneNumberCount(totalChars: String) -> Bool {
@@ -56,30 +55,29 @@ final class AuthenticationViewModel: ObservableObject {
     }
 
     func passwordText(totalChars: String) -> String {
-        if totalChars.count <= Constants.maxPasswordNumber {
-            lastPasswordText = totalChars
-            return lastPasswordText
-        } else {
+        guard totalChars.count <= Constants.maxPasswordNumber else {
             return lastPasswordText
         }
+        lastPasswordText = totalChars
+        return lastPasswordText
     }
 
     func progressViewActivate(completion: @escaping (String) -> Void) {
         Timer.scheduledTimer(withTimeInterval: Constants.timeInterval, repeats: true, block: { timer in
-            if self.progressViewCount == Constants.progressMaxCount {
-                timer.invalidate()
+            guard self.progressViewCount == Constants.progressMaxCount else {
                 self.progressViewCount = Constants.zeroNumber
-                if
-                    Constants.minPasswordNumber ... Constants.maxPasswordNumber ~= self.passwordText.count,
-                    self.lastNumberText.count == Constants.phoneNumber
-                {
-                    completion(Constants.detailViewTagText)
-                } else {
-                    completion(Constants.emptyText)
-                }
-            } else {
-                self.progressViewCount += Constants.oneNumber
+                return
             }
+            timer.invalidate()
+            self.progressViewCount = Constants.zeroNumber
+            guard
+                Constants.minPasswordNumber ... Constants.maxPasswordNumber ~= self.passwordText.count,
+                self.lastNumberText.count == Constants.phoneNumber
+            else {
+                completion(Constants.emptyText)
+                return
+            }
+            completion(Constants.detailViewTagText)
         })
     }
 }

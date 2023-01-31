@@ -29,7 +29,7 @@ struct StartView: View {
             VStack {
                 titleTextView
                 randomImageView
-                mainTabBarNavigationLink
+                mainTabBarNavigationLinkView
                 Spacer()
                 developerView
                 getStartedTextView
@@ -104,7 +104,7 @@ struct StartView: View {
             }
     }
 
-    private var mainTabBarNavigationLink: some View {
+    private var mainTabBarNavigationLinkView: some View {
         NavigationLink(
             destination: MainTabBarView(),
             tag: Constants.mainTabBarViewTagText,
@@ -119,7 +119,7 @@ struct StartView: View {
         ZStack {
             Spacer()
                 .frame(height: 100)
-            if viewModel.isDeveloperViewShow {
+            if viewModel.isDeveloperViewShown {
                 Text(Constants.devTextViewName)
                     .font(Font.system(size: 20, weight: .semibold))
                     .foregroundColor(.white)

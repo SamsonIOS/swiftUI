@@ -15,7 +15,6 @@ struct DetailView: View {
         static var buyNowText = "Buy now"
         static var basketText = "basket"
         static var heartFillText = "heart.fill"
-        static var scaleNumber: CGFloat = 1
         static var descriptionText = "Description"
         static var charsText = "Chars"
         static var oneHundredText = "/ 100"
@@ -57,7 +56,7 @@ struct DetailView: View {
     @State private var descriptionText = ""
     @State private var descriptionTextCount = 0
     @State private var descriptionTextMaxCount = 150
-    @State private var scale: CGFloat = Constants.scaleNumber
+    @State private var scale: CGFloat = 1
     @State private var isHeartFill = false
 
     private var chairImageView: some View {
@@ -66,7 +65,7 @@ struct DetailView: View {
             .frame(width: 200, height: 300)
             .foregroundColor(.orange.opacity(0.8))
             .scaleEffect(scale)
-            .gesture(magnification)
+            .gesture(magnificationGesture)
     }
 
     private var whiteRectangleView: some View {
@@ -89,7 +88,7 @@ struct DetailView: View {
         }
     }
 
-    private var magnification: some Gesture {
+    private var magnificationGesture: some Gesture {
         MagnificationGesture()
             .onChanged { value in
                 if value <= 2 {
