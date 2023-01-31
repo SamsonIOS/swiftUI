@@ -26,18 +26,21 @@ struct AuthenticationView: View {
         static let rectangleSpacing: CGFloat = 60
         static let defaultHorizontalSpacing: CGFloat = 10
         static let strokeWidth: CGFloat = 3
+
+        static let progressViewTotal = 10.0
+        static var xmarkText = "xmark"
     }
 
     // MARK: - Public Properties
 
     var body: some View {
         VStack(spacing: 60) {
-            Spacer()
+            headerBackgroundView(height: 150)
             logInSignUpView
             numberTextEditorView
             passwordTextEditorView
-            Spacer()
             detailNavigationLinkView
+            progressView
             signUpTextView
             NavigationLink(destination: VerificationView()) {
                 checkTextView
@@ -45,6 +48,8 @@ struct AuthenticationView: View {
             forgotPasswordButtonView
             Spacer()
         }
+        .navigationBarHidden(true)
+        .ignoresSafeArea()
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
@@ -59,16 +64,11 @@ struct AuthenticationView: View {
     @FocusState private var isNumberIsFocused: Bool
     @FocusState private var isPasswordIsFocused: Bool
 
-    @State private var phoneNumberText = ""
-    @State private var passwordText = ""
-    @State private var isAlertShown = false
-    @State private var selectionViewText: String?
-
     private var detailNavigationLinkView: some View {
         NavigationLink(
             destination: MainTabBarView(),
             tag: Constants.detailViewTagText,
-            selection: $selectionViewText,
+            selection: $viewModel.selectionViewText,
             label: {
                 EmptyView()
             }
@@ -92,17 +92,23 @@ struct AuthenticationView: View {
             .foregroundColor(.purple)
         }
         .frame(width: Constants.defaultWidth, height: Constants.defaultHeight)
+        .scaleEffect(viewModel.scaleLogInSignUpViewNumber)
+        .onAppear {
+            withAnimation(Animation.linear(duration: 0.4).delay(0.4)) {
+                viewModel.scaleLogInSignUpViewNumber = 1
+            }
+        }
     }
 
     private var numberTextEditorView: some View {
         VStack {
-            TextField(Constants.placeholderNumberText, text: $phoneNumberText)
+            TextField(Constants.placeholderNumberText, text: $viewModel.phoneNumberText)
                 .font(.system(size: Constants.largeFontSize))
                 .keyboardType(.numberPad)
                 .padding(.horizontal, Constants.defaultHorizontalSpacing)
                 .focused($isNumberIsFocused)
-                .onChange(of: phoneNumberText) { totalChars in
-                    phoneNumberText = viewModel.phoneNumberFormatter.string(for: totalChars) ?? viewModel
+                .onChange(of: viewModel.phoneNumberText) { totalChars in
+                    viewModel.phoneNumberText = viewModel
                         .phoneNumberText(totalChars: totalChars)
                     if viewModel.checkPhoneNumberCount(totalChars: totalChars) {
                         isNumberIsFocused = false
@@ -116,6 +122,12 @@ struct AuthenticationView: View {
                 )
                 .foregroundColor(Color.gray)
         }
+        .scaleEffect(viewModel.scaleNumberTextEditorViewNumber)
+        .onAppear {
+            withAnimation(Animation.linear(duration: 0.4).delay(0.8)) {
+                viewModel.scaleNumberTextEditorViewNumber = 1
+            }
+        }
     }
 
     private var passwordTextEditorView: some View {
@@ -124,36 +136,95 @@ struct AuthenticationView: View {
                 Text(Constants.passwordText)
                 Spacer()
             }
-            SecureField(Constants.placeholderPasswordText, text: $passwordText)
-                .font(.system(size: Constants.largeFontSize))
-                .focused($isPasswordIsFocused)
-                .onChange(of: passwordText) { totalChars in
-                    passwordText = viewModel.passwordText(totalChars: totalChars)
+            ZStack {
+                SecureField(Constants.placeholderPasswordText, text: $viewModel.passwordText)
+                    .font(.system(size: Constants.largeFontSize))
+                    .focused($isPasswordIsFocused)
+                    .onChange(of: viewModel.passwordText) { totalChars in
+                        viewModel.passwordText = viewModel.passwordText(totalChars: totalChars)
+                    }
+                HStack {
+                    Spacer()
+                    if viewModel.isXmarkShown {
+                        Image(systemName: Constants.xmarkText)
+                            .font(.system(size: Constants.largeFontSize))
+                            .foregroundColor(.red)
+                    }
                 }
+            }
+            .offset(x: viewModel.isPasswordViewAnimate ? -10 : 0)
             Rectangle()
                 .frame(width: UIScreen.main.bounds.width - Constants.rectangleSpacing, height: Constants.strokeWidth)
                 .foregroundColor(Color.gray)
         }
         .padding(.horizontal, Constants.defaultHorizontalSpacing)
+        .scaleEffect(viewModel.scalePasswordTextEditorViewNumber)
+        .onAppear {
+            withAnimation(Animation.linear(duration: 0.4).delay(1.2)) {
+                viewModel.scalePasswordTextEditorViewNumber = 1
+            }
+        }
+    }
+
+    private var progressView: some View {
+        ProgressView(
+            Constants.emptyText,
+            value: Double(viewModel.progressViewCount),
+            total: Constants.progressViewTotal
+        )
+        .tint(.purple)
+        .frame(width: Constants.defaultWidth)
+        .scaleEffect(viewModel.scaleProgressViewNumber)
+        .onAppear {
+            withAnimation(Animation.linear(duration: 0.4).delay(1.6)) {
+                viewModel.scaleProgressViewNumber = 1
+            }
+        }
     }
 
     private var signUpTextView: some View {
         Button(Constants.signUpText) {
-            selectionViewText = viewModel.getResultUserCheck()
+            viewModel.progressViewActivate { result in
+                switch result {
+                case Constants.detailViewTagText:
+                    viewModel.selectionViewText = result
+                default:
+                    viewModel.isXmarkShown.toggle()
+                    withAnimation(Animation.linear(duration: 0.1).repeatCount(6, autoreverses: true)) {
+                        viewModel.isPasswordViewAnimate.toggle()
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        viewModel.isPasswordViewAnimate.toggle()
+                        viewModel.isXmarkShown.toggle()
+                    }
+                }
+            }
         }
         .redButtonModifierView()
+        .scaleEffect(viewModel.scaleSignUpTextViewNumber)
+        .onAppear {
+            withAnimation(Animation.linear(duration: 0.4).delay(2.0)) {
+                viewModel.scaleSignUpTextViewNumber = 1
+            }
+        }
     }
 
     private var checkTextView: some View {
         Text(Constants.checkButtonText)
             .redButtonModifierView()
+            .scaleEffect(viewModel.scaleCheckTextViewNumber)
+            .onAppear {
+                withAnimation(Animation.linear(duration: 0.4).delay(2.4)) {
+                    viewModel.scaleCheckTextViewNumber = 1
+                }
+            }
     }
 
     private var forgotPasswordButtonView: some View {
         Button(Constants.forgotButtonText) {
-            isAlertShown = true
+            viewModel.isAlertShown = true
         }
-        .alert(isPresented: $isAlertShown) {
+        .alert(isPresented: $viewModel.isAlertShown) {
             Alert(
                 title: Text(Constants.alertTitleText),
                 dismissButton: .default(Text(Constants.okText))
@@ -161,6 +232,12 @@ struct AuthenticationView: View {
         }
         .foregroundColor(.purple)
         .font(Font.system(size: 20))
+        .scaleEffect(viewModel.scaleForgotPasswordButtonViewNumber)
+        .onAppear {
+            withAnimation(Animation.linear(duration: 0.4).delay(2.8)) {
+                viewModel.scaleForgotPasswordButtonViewNumber = 1
+            }
+        }
     }
 }
 

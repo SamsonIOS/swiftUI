@@ -12,6 +12,7 @@ extension String {
         static let spacingText: Character = " "
         static let rangeText = "[^0-9]"
         static let maskNumberText = "+X (XXX) XXX XX-XX"
+        static let cardFormat = "XXXX-XXXX-XXXX-XXXX"
         static let sevenPlusText: String = "+7"
         static let sevenText: Character = "7"
         static let elementText: Character = "X"
@@ -45,7 +46,26 @@ extension String {
         return result
     }
 
+    func formatCardNumber(with mask: String) -> String {
+        let numbers = removeAllSpace().makeNumberString()
+        var result = Constants.emptyText
+        var index = numbers.startIndex
+        for ch in mask.enumerated() where index < numbers.endIndex {
+            if ch.element == Character("X") {
+                result.append(numbers[index])
+                index = numbers.index(after: index)
+            } else {
+                result.append(ch.element)
+            }
+        }
+        return result
+    }
+
     func phoneFromat() -> String {
         formatPhone(with: Constants.maskNumberText)
+    }
+
+    func cardFormat() -> String {
+        formatCardNumber(with: Constants.cardFormat)
     }
 }

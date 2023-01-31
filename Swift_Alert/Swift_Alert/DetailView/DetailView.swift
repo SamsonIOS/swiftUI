@@ -14,6 +14,8 @@ struct DetailView: View {
         static var heartText = "heart"
         static var buyNowText = "Buy now"
         static var basketText = "basket"
+        static var heartFillText = "heart.fill"
+        static var scaleNumber: CGFloat = 1
         static var descriptionText = "Description"
         static var charsText = "Chars"
         static var oneHundredText = "/ 100"
@@ -26,6 +28,7 @@ struct DetailView: View {
 
     var body: some View {
         VStack(spacing: Constants.defaultSpacing) {
+            headerBackgroundView(height: 100)
             chairImageView
             ZStack {
                 whiteRectangleView
@@ -43,6 +46,8 @@ struct DetailView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+        .navigationBarHidden(true)
+        .ignoresSafeArea()
     }
 
     // MARK: - Private Properties
@@ -52,12 +57,16 @@ struct DetailView: View {
     @State private var descriptionText = ""
     @State private var descriptionTextCount = 0
     @State private var descriptionTextMaxCount = 150
+    @State private var scale: CGFloat = Constants.scaleNumber
+    @State private var isHeartFill = false
 
     private var chairImageView: some View {
         Image(systemName: Constants.chairImageName)
             .resizable()
             .frame(width: 200, height: 300)
             .foregroundColor(.orange.opacity(0.8))
+            .scaleEffect(scale)
+            .gesture(magnification)
     }
 
     private var whiteRectangleView: some View {
@@ -80,12 +89,31 @@ struct DetailView: View {
         }
     }
 
+    private var magnification: some Gesture {
+        MagnificationGesture()
+            .onChanged { value in
+                if value <= 2 {
+                    scale = value
+                }
+            }
+            .onEnded { _ in
+                withAnimation {
+                    scale = 1
+                }
+            }
+    }
+
     private var buyChairView: some View {
         VStack {
-            Image(systemName: Constants.heartText)
+            Image(systemName: isHeartFill ? Constants.heartFillText : Constants.heartText)
                 .resizable()
                 .frame(width: 40, height: 30)
                 .foregroundColor(.red)
+                .onTapGesture {
+                    withAnimation {
+                        isHeartFill.toggle()
+                    }
+                }
                 .offset(x: 50, y: 10)
             Text(Constants.buyNowText)
                 .multilineTextAlignment(.trailing)

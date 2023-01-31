@@ -14,7 +14,7 @@ struct MainTabBarView: View {
         static var personText = "person"
         static var gearshapeText = "gearshape"
         static var ellipsisText = "ellipsis"
-        static var zeroNumber = 0
+        static var startViewNumber = 2
         static var houseTagNumber = 0
         static var basketTagNumber = 1
         static var personTagNumber = 2
@@ -57,7 +57,7 @@ struct MainTabBarView: View {
 
     // MARK: - Private Properties
 
-    @State private var selectionViewNumber = Constants.zeroNumber
+    @State private var selectionViewNumber = Constants.startViewNumber
 }
 
 struct MainTabBarView_Previews: PreviewProvider {

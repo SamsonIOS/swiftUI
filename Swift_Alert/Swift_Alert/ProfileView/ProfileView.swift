@@ -31,59 +31,59 @@ struct ProfileView: View {
     // MARK: - Public Properties
 
     var body: some View {
-        NavigationView {
-            VStack(spacing: 30) {
-                headerBackgroundView(height: 100)
-                infoUserView
-                List {
-                    NavigationLink {} label: {
-                        menuView(
-                            imageName: Constants.mailText,
-                            menuName: Constants.messagesText,
-                            isNotification: true,
-                            countNote: 3
-                        )
-                    }
-                    NavigationLink {
-                        NotificationsView()
-                    } label: {
-                        menuView(
-                            imageName: Constants.bellImageName,
-                            menuName: Constants.notificationText,
-                            isNotification: true,
-                            countNote: 5
-                        )
-                    }
-                    NavigationLink {} label: {
-                        menuView(
-                            imageName: Constants.personImageName,
-                            menuName: Constants.accountsDetailsText,
-                            isNotification: false,
-                            countNote: Constants.zeroNumber
-                        )
-                    }
-                    NavigationLink {} label: {
-                        menuView(
-                            imageName: Constants.basketImageName,
-                            menuName: Constants.myPurchasesText,
-                            isNotification: false,
-                            countNote: Constants.zeroNumber
-                        )
-                    }
-                    NavigationLink {} label: {
-                        menuView(
-                            imageName: Constants.gearshapeImageName,
-                            menuName: Constants.settingsText,
-                            isNotification: false,
-                            countNote: Constants.zeroNumber
-                        )
-                    }
+        VStack(spacing: 30) {
+            headerBackgroundView(height: 100)
+            infoUserView
+            List {
+                NavigationLink {} label: {
+                    menuView(
+                        imageName: Constants.mailText,
+                        menuName: Constants.messagesText,
+                        isNotification: true,
+                        countNote: 3
+                    )
                 }
-                .listStyle(.plain)
+                NavigationLink {
+                    NotificationsView()
+                } label: {
+                    menuView(
+                        imageName: Constants.bellImageName,
+                        menuName: Constants.notificationText,
+                        isNotification: true,
+                        countNote: 5
+                    )
+                }
+                NavigationLink {} label: {
+                    menuView(
+                        imageName: Constants.personImageName,
+                        menuName: Constants.accountsDetailsText,
+                        isNotification: false,
+                        countNote: Constants.zeroNumber
+                    )
+                }
+                NavigationLink {} label: {
+                    menuView(
+                        imageName: Constants.basketImageName,
+                        menuName: Constants.myPurchasesText,
+                        isNotification: false,
+                        countNote: Constants.zeroNumber
+                    )
+                }
+                NavigationLink {
+                    PaymentView()
+                } label: {
+                    menuView(
+                        imageName: Constants.gearshapeImageName,
+                        menuName: Constants.settingsText,
+                        isNotification: false,
+                        countNote: Constants.zeroNumber
+                    )
+                }
             }
-            .navigationBarHidden(true)
-            .ignoresSafeArea()
+            .listStyle(.plain)
         }
+        .navigationBarHidden(true)
+        .ignoresSafeArea()
     }
 
     // MARK: - Private properties

@@ -10,6 +10,8 @@ struct StartView: View {
     private enum Constants {
         static let titleTextViewName = "ONLINE FURNITURE STORE"
         static let getStartedTextView = "GET STARTED"
+        static var mainTabBarViewTagText = "MainTabBarView"
+        static var devTextViewName = "iOS Family ©"
         static let questionTextView = "Don't have an account?"
         static let signInTextView = "Sign in here"
         static let urlText = "https://picsum.photos/200"
@@ -27,10 +29,10 @@ struct StartView: View {
             VStack {
                 titleTextView
                 randomImageView
+                mainTabBarNavigationLink
                 Spacer()
-                NavigationLink(destination: MainTabBarView()) {
-                    getStartedTextView
-                }
+                developerView
+                getStartedTextView
                 Spacer()
                 questionTextView
                 NavigationLink(destination: AuthenticationView()) {
@@ -46,6 +48,10 @@ struct StartView: View {
     }
 
     // MARK: - Private Properties
+
+    @StateObject private var viewModel = StartViewModel()
+
+    @State private var selectionViewText: String?
 
     private var titleTextView: some View {
         Text(Constants.titleTextViewName)
@@ -89,11 +95,44 @@ struct StartView: View {
             .background(
                 LinearGradient(colors: [Color.black.opacity(0.8), Color.blue], startPoint: .top, endPoint: .bottom)
             )
-            .cornerRadius(Constants.getStartedTextCornerRadius)
-            .overlay {
-                RoundedRectangle(cornerRadius: Constants.getStartedTextCornerRadius)
-                    .stroke(.white, lineWidth: Constants.lineWidth)
+            .cornerRadius(40)
+            .onTapGesture {
+                selectionViewText = Constants.mainTabBarViewTagText
             }
+            .onLongPressGesture(minimumDuration: 2) {
+                viewModel.developerViewAnimate()
+            }
+    }
+
+    private var mainTabBarNavigationLink: some View {
+        NavigationLink(
+            destination: MainTabBarView(),
+            tag: Constants.mainTabBarViewTagText,
+            selection: $selectionViewText,
+            label: {
+                EmptyView()
+            }
+        )
+    }
+
+    private var developerView: some View {
+        ZStack {
+            Spacer()
+                .frame(height: 100)
+            if viewModel.isDeveloperViewShow {
+                Text(Constants.devTextViewName)
+                    .font(Font.system(size: 20, weight: .semibold))
+                    .foregroundColor(.white)
+                    .frame(width: 250, height: 100)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(.white, lineWidth: 6)
+                    }
+                    .transition(.scale)
+                    .cornerRadius(20)
+            }
+        }
+        .padding()
     }
 
     private var questionTextView: some View {
