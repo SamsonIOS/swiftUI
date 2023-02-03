@@ -11,7 +11,17 @@ import SwiftUI
 struct Swift_AlertApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if #available(iOS 16.0, *) {
+                NavigationStack {
+                    StartView()
+                        .environment(\.colorScheme, .dark)
+                }
+            } else {
+                NavigationView {
+                    StartView()
+                        .environment(\.colorScheme, .dark)
+                }
+            }
         }
     }
 }
