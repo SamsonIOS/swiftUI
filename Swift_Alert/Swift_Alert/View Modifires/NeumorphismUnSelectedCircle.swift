@@ -16,7 +16,7 @@ struct NeumorphismUnSelectedCircle: ViewModifier {
             .padding(.all, 10)
             .background(
                 Circle()
-                    .fill(Color("background"))
+                    .fill(Color.backgroundColor)
             )
             .neumorphismUnSelectedStyle()
             

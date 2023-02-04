@@ -12,11 +12,11 @@ struct BottomSheetView<Content: View>: View {
 
     // MARK: - Public Propeties
     
-    let contentClosure: () -> Content
+    let contentHandler: () -> Content
 
     var body: some View {
         ZStack {
-            contentClosure()
+            contentHandler()
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
                 .background(
                     .ultraThinMaterial, in:
@@ -29,7 +29,7 @@ struct BottomSheetView<Content: View>: View {
         .ignoresSafeArea(edges: .top)
     }
 
-// MARK: - Private Properties
+    // MARK: - Private Properties
     
     @GestureState private var gestureOffset = CGSize.zero
 

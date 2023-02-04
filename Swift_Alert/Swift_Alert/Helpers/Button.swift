@@ -10,7 +10,8 @@ import SwiftUI
 /// Кнопка навигации
 struct NavigationButton: View {
 
-    // MARK: - Body
+    // MARK: - Public properties
+    
     var body: some View {
         Button {
             actionHandler()
@@ -18,19 +19,22 @@ struct NavigationButton: View {
             ZStack {
                 Circle()
                     .fill(
-                        LinearGradient(colors: [Color("leftButtonThirdEllipseFirstColor").opacity(0.4), Color("leftButtonThirdEllipseSecondColor").opacity(0.7)], startPoint: .top, endPoint: .bottomTrailing)
+                        LinearGradient(
+                            colors: [Color.leftButtonThirdEllipseFirstColor.opacity(0.4), Color.leftButtonThirdEllipseSecondColor.opacity(0.7)],
+                            startPoint: .top,
+                            endPoint: .bottomTrailing)
                     )
                     .frame(width: 62)
                     .shadow(color: .white, radius: 10, x: -5, y: -5).opacity(0.6)
                     .shadow(color: .black, radius: 10, x: 5, y: 5).opacity(0.5)
                 Circle()
                     .fill(
-                        LinearGradient(colors: [Color("leftButtonSecondEllipseFirstColor").opacity(0.3), Color("leftButtonSecondEllipseSecondColor").opacity(0.5)], startPoint: .top, endPoint: .trailing)
+                        LinearGradient(colors: [Color.leftButtonSecondEllipseFirstColor.opacity(0.3), Color.leftButtonSecondEllipseSecondColor.opacity(0.5)], startPoint: .top, endPoint: .trailing)
                     )
                     .frame(width: 50)
                 Circle()
                     .stroke(
-                        LinearGradient(colors: [Color("leftButtonFirstEllipseFirstColor").opacity(0.5), Color("leftButtonFirstEllipseSecondColor").opacity(0.2)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        LinearGradient(colors: [Color.leftButtonFirstEllipseFirstColor.opacity(0.5), Color.leftButtonFirstEllipseSecondColor.opacity(0.2)], startPoint: .topLeading, endPoint: .bottomTrailing)
                         , lineWidth: 1)
                     .frame(width: 50)
                 Image(systemName: iconName)
@@ -41,6 +45,7 @@ struct NavigationButton: View {
     }
     
     // MARK: - Publlic properties
+    
     let actionHandler: () -> ()
     let iconName: String
 }

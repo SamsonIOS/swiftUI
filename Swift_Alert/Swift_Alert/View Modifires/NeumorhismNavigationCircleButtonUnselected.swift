@@ -20,14 +20,14 @@ struct NeumorhismNavigationCircleButtonUnselected: ViewModifier {
             .background(RoundedRectangle(cornerRadius: 50)
             .fill(
                 LinearGradient(
-                    colors: [Color("lightShadow"), Color("darkShadow")],
+                    colors: [Color.lightShadow, Color.darkShadow],
                                startPoint: .topLeading,
                                endPoint: .bottomTrailing)
             ))
             .overlay {
                 Circle()
                     .stroke(
-                        LinearGradient(colors: [Color("lightShadow"), Color("darkShadow").opacity(0.2)],
+                        LinearGradient(colors: [Color.lightShadow, Color.darkShadow.opacity(0.2)],
                                        startPoint: .topLeading,
                                        endPoint: .bottomTrailing), lineWidth: 2
                     )

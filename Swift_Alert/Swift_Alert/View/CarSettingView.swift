@@ -11,6 +11,7 @@ import SwiftUI
 struct CarSettingView: View {
     
     // MARK: - Constants
+    
     private enum ElementsName {
         static let teslaText = "Tesla"
         static let kmText = "187 km"
@@ -22,7 +23,8 @@ struct CarSettingView: View {
         static let lockImageName = "lock.fill"
         static let lockOpenImageName = "lock.open.fill"
     }
-    // MARK: - Body
+    
+    // MARK: - Public properties
     
     var body: some View {
         backgroundStackView {
@@ -91,24 +93,7 @@ struct CarSettingView: View {
     private var controllPanelView: some View {
         HStack(spacing: 50) {
             ForEach(1..<5) { index in
-                Button {
-                    withAnimation {
-                        carSettingViewModel.tagSelected = index
-                    }
-                    if index == 2 {
-                        carSettingViewModel.isNavigationTapped.toggle()
-                    }
-                } label: {
-                    Image("\(index)")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .neumorphismSelectedCircleStyle()
-                        .overlay(
-                            Circle()
-                                .stroke(gradient, lineWidth: 2)
-                                .opacity(carSettingViewModel.tagSelected == index ? 1 : 0)
-                        )
-                }
+                panelView(index)
             }
         }
         .frame(width: 330 ,height: 104)
@@ -149,6 +134,27 @@ struct CarSettingView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea(.all)
             content()
+        }
+    }
+    
+    private func panelView(_ index: Int) -> some View {
+        Button {
+            withAnimation {
+                carSettingViewModel.tagSelected = index
+            }
+            if index == 2 {
+                carSettingViewModel.isNavigationTapped.toggle()
+            }
+        } label: {
+            Image("\(index)")
+                .resizable()
+                .frame(width: 25, height: 25)
+                .neumorphismSelectedCircleStyle()
+                .overlay(
+                    Circle()
+                        .stroke(gradient, lineWidth: 2)
+                        .opacity(carSettingViewModel.tagSelected == index ? 1 : 0)
+                )
         }
     }
 }

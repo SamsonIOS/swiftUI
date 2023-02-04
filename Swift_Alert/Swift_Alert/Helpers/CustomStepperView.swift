@@ -9,6 +9,14 @@ import SwiftUI
 
 /// Кастомный степпер
 struct CustomStepperView: View {
+    
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let chevronLeftImageName = "chevron.left"
+        static let chevronRightImageName = "chevron.right"
+        static let temperatureText = "° C"
+    }
 
     // MARK: - Public properties
         
@@ -19,15 +27,15 @@ struct CustomStepperView: View {
             Button {
                 value -= 1
             } label: {
-                Image(systemName: "chevron.left")
+                Image(systemName: Constants.chevronLeftImageName)
             }
-            Text("\(15 + value)° C")
+            Text("\(15 + value)\(Constants.temperatureText)")
                 .font(.system(size: 34))
                 .padding(.horizontal)
             Button {
                 value += 1
             } label: {
-                Image(systemName: "chevron.right")
+                Image(systemName: Constants.chevronRightImageName)
             }
         }
         .frame(width: 300, alignment: .center)

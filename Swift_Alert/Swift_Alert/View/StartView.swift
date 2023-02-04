@@ -23,7 +23,7 @@ struct StartView: View {
         static let lockImageName = "lock.fill"
     }
     
-    // MARK: - Body
+    // MARK: - Public properties
     
     var body: some View {
         backgroundStackView {
@@ -122,6 +122,64 @@ struct StartView: View {
         }
     }
     
+    private var closedOpenCarButton: some View {
+        Circle()
+            .fill(LinearGradient(
+                colors: [Color.white.opacity(0.15), Color.black.opacity(0.35)],
+                startPoint: .top,
+                endPoint: .bottomTrailing
+            ))
+            .frame(width: 49)
+            .overlay(Circle().stroke(
+                LinearGradient(
+                    colors: [Color.black.opacity(0.6), Color.white.opacity(0.2)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                lineWidth: 1
+            ))
+            .padding(.all, 0)
+            .background(Circle().fill(Color.backgroundColor))
+    }
+    
+    private var backgroundClosedCarControllView: some View {
+        RoundedRectangle(cornerRadius: 50)
+            .fill(Color.black.opacity(0.5))
+            .overlay(
+                RoundedRectangle(cornerRadius: 50)
+                    .stroke(Color.black.opacity(1), lineWidth: 8)
+                    .blur(radius: 8)
+                    .offset(x: 2, y: 2)
+                    .mask(RoundedRectangle(cornerRadius: 50).fill(LinearGradient(
+                        colors: [Color.black, Color.clear],
+                        startPoint: .top,
+                        endPoint: .bottom)))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 50)
+                    .stroke(Color.white.opacity(0.15), lineWidth: 8)
+                    .blur(radius: 8)
+                    .offset(x: -2, y: -2)
+                    .mask(RoundedRectangle(cornerRadius: 50).fill(LinearGradient(
+                        colors: [Color.clear, Color.black],
+                        startPoint: .top,
+                        endPoint: .bottom)))
+            )
+            .frame(width: 165, height: 79)
+    }
+    
+    private var closedCarTextView: some View {
+        Text(starViewModel.isCarClose ? ElementName.lockText : ElementName.unlockText)
+            .foregroundColor(.white)
+            .frame(width: 60)
+    }
+    
+    private var gradientForCarControllView: some View {
+        LinearGradient(colors: [Color.gradientTopColor, Color.gradientBottomColor], startPoint: .top, endPoint: .bottom)
+            .mask(Image(systemName: starViewModel.isCarClose ? ElementName.openImageName : ElementName.lockImageName))
+            .frame(width: 44, height: 44)
+    }
+    
     private var closedCarControllView: some View {
         Button {
             withAnimation {
@@ -130,61 +188,19 @@ struct StartView: View {
         } label: {
             HStack {
                 Label {
-                    Text(starViewModel.isCarClose ? ElementName.lockText : ElementName.unlockText)
-                        .foregroundColor(.white)
-                        .frame(width: 60)
+                    closedCarTextView
                 } icon: {
                     ZStack {
                         ZStack {
-                            Circle()
-                                .fill(LinearGradient(
-                                    colors: [Color.white.opacity(0.15), Color.black.opacity(0.35)],
-                                    startPoint: .top,
-                                    endPoint: .bottomTrailing
-                                ))
-                                .frame(width: 49)
-                                .overlay(Circle().stroke(
-                                    LinearGradient(
-                                        colors: [Color.black.opacity(0.6), Color.white.opacity(0.2)],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    ),
-                                    lineWidth: 1
-                                ))
-                                .padding(.all, 0)
-                                .background(Circle().fill(Color.backgroundColor))
+                            closedOpenCarButton
                         }
-                     LinearGradient(colors: [Color.gradientTopColor, Color.gradientBottomColor], startPoint: .top, endPoint: .bottom)
-                            .mask(Image(systemName: starViewModel.isCarClose ? ElementName.openImageName : ElementName.lockImageName))
-                            .frame(width: 44, height: 44)
+                        gradientForCarControllView
                     }
                 }
             }
             .padding()
             .background(
-                RoundedRectangle(cornerRadius: 50)
-                    .fill(Color.black.opacity(0.5))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 50)
-                            .stroke(Color.black.opacity(1), lineWidth: 8)
-                            .blur(radius: 8)
-                            .offset(x: 2, y: 2)
-                            .mask(RoundedRectangle(cornerRadius: 50).fill(LinearGradient(
-                                colors: [Color.black, Color.clear],
-                                startPoint: .top,
-                                endPoint: .bottom)))
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 50)
-                            .stroke(Color.white.opacity(0.15), lineWidth: 8)
-                            .blur(radius: 8)
-                            .offset(x: -2, y: -2)
-                            .mask(RoundedRectangle(cornerRadius: 50).fill(LinearGradient(
-                                colors: [Color.clear, Color.black],
-                                startPoint: .top,
-                                endPoint: .bottom)))
-                    )
-                    .frame(width: 165, height: 79)
+                backgroundClosedCarControllView
             )
         }
     }
