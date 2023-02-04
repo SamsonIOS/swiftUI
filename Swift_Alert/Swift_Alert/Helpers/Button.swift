@@ -44,8 +44,6 @@ struct NavigationButton: View {
         }
     }
     
-    // MARK: - Publlic properties
-    
     let actionHandler: () -> ()
     let iconName: String
 }
