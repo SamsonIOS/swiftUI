@@ -13,12 +13,12 @@ struct Swift_AlertApp: App {
         WindowGroup {
             if #available(iOS 16.0, *) {
                 NavigationStack {
-                    StartView()
+                    LaunchScreenView()
                         .environment(\.colorScheme, .dark)
                 }
             } else {
                 NavigationView {
-                    StartView()
+                    LaunchScreenView()
                         .environment(\.colorScheme, .dark)
                 }
             }

@@ -27,9 +27,12 @@ struct NeumorhismNavigationCircleButtonUnselected: ViewModifier {
             .overlay {
                 Circle()
                     .stroke(
-                        LinearGradient(colors: [Color.lightShadow, Color.darkShadow.opacity(0.2)],
+                        LinearGradient(
+                            colors: [Color.lightShadow,
+                                     Color.darkShadow.opacity(0.2)],
                                        startPoint: .topLeading,
-                                       endPoint: .bottomTrailing), lineWidth: 2
+                                       endPoint: .bottomTrailing),
+                        lineWidth: 2
                     )
             }
             .neumorphismUnSelectedStyle()

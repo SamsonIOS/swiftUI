@@ -11,6 +11,7 @@ import SwiftUI
 struct NeumorphismSelectedCircle: ViewModifier {
 
     // MARK: - Public Methods
+    
     func body(content: Content) -> some View {
         content
             .padding(.all, 10)

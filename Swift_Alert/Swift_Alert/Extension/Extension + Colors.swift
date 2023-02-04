@@ -31,4 +31,9 @@ extension Color {
     static let leftButtonSecondEllipseSecondColor = Color("leftButtonSecondEllipseSecondColor")
     static let leftButtonFirstEllipseFirstColor = Color("leftButtonFirstEllipseFirstColor")
     static let leftButtonFirstEllipseSecondColor = Color("leftButtonFirstEllipseSecondColor")
+    static let silverTopGradient = Color("silverTopGradient")
+    static let silverBottomGradient = Color("silverBottomGradient")
+    static let label = Color("label")
+    static let chargeLimit = Color("chargeLimit")
+    static let tabBarItem = Color("tabBarItemColor")
 }

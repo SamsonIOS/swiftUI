@@ -35,7 +35,10 @@ struct StartView: View {
                     welcomeTextView
                     Spacer()
                     teslaImageView
-                        .animation(starViewModel.isCarClose ? .easeInOut(duration: 5) : .easeIn, value: starViewModel.isCarClose)
+                        .animation(
+                            starViewModel.isCarClose ? .easeInOut(duration: 2.5) : .easeIn(duration: 2.5),
+                            value: starViewModel.isCarClose
+                        )
                     Spacer()
                     closedCarControllView
                 }
@@ -57,6 +60,7 @@ struct StartView: View {
                 Text(ElementName.welcomeText)
                     .bold()
                     .font(.system(size: 40))
+                    .transition(.opacity)
             } else {
                 EmptyView()
             }
@@ -74,7 +78,7 @@ struct StartView: View {
     
     private var settingsButtonView: some View {
         NavigationLink(isActive: $starViewModel.isCarSettingsViewShown) {
-            CarSettingView()
+            MainTabView()
                 .navigationBarBackButtonHidden(true)
         } label: {
             ZStack {

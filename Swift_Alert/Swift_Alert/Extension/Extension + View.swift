@@ -28,4 +28,8 @@ extension View {
     func neumorhismNavigationCircleButtonUnselected() -> some View {
         modifier(NeumorhismNavigationCircleButtonUnselected())
     }
+    
+    func myTabItem(_ label: () -> TabItem) -> some View {
+        modifier(TabItemModifire(tabBatItem: label()))
+    }
 }
