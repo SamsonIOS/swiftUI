@@ -11,7 +11,7 @@ extension String {
         static let emptyText = ""
         static let spacingText: Character = " "
         static let rangeText = "[^0-9]"
-        static let maskNumberText = "+X (XXX) XXX XX-XX"
+        static let maskNumberText = "+X-(XXX)-XXX-XX-XX"
         static let cardFormat = "XXXX-XXXX-XXXX-XXXX"
         static let sevenPlusText: String = "+7"
         static let sevenText: Character = "7"
